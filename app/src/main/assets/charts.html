@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+	<script src="macarons.js"></script>
+	<style>
+        html,body
+        {
+        height: 98%;
+        width: 98%;
+        text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main"
+        style="height: 100%; width: 100%; text-align: center;"></div>
+    <script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'),'macarons');
+		
+		//构造表格的函数
+		function createChart(time_array,wendu_data,shidu_data,wendu_min,wendu_max,shidu_min,shidu_max)
+		{
+            option = {
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    orient: 'horizontal',
+                    x:'center',
+                    y:'bottom',
+                    padding:[0,0,10,0],
+                    data:['温度','湿度']
+                },
+                grid: {
+                    x:40,         //距离左边的距离
+                    x2:40,        //距离右边的距离
+                    y:40,         //距离上边的距离
+                    y2:55         //距离下边的距离
+                },
+                xAxis:  {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: time_array
+                },
+                yAxis: [
+                    {
+                    type: 'value',
+                    min:wendu_min,
+                    max:wendu_max,
+                    axisLabel: {
+                        formatter: '{value} °C'}
+                    },
+                    {
+                    type: 'value',
+                    min:shidu_min,
+                    max:shidu_max,
+                    axisLabel: {
+                        formatter: '{value} %'}
+                    }
+                ],
+                series: [
+                    {
+                        name:'温度',
+                        type:'line',
+                        data:wendu_data,
+                        yAxisIndex: 0,
+                        smooth:true,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:'湿度',
+                        type:'line',
+                        data:shidu_data,
+                        yAxisIndex: 1,
+                        smooth:true,
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            };
+			myChart.setOption(option,window.onresize = myChart.resize);
+		}
+		createChart([],[],[],0,50,0,100);
+    </script>
+</body>
+</html>
