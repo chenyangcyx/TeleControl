@@ -15,12 +15,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Network_details extends AppCompatActivity
 {
     TextView text_details;      //显示状态信息的框
+    ScrollView text_scroll;     //下拉框
     Button button_back,button_clear,button_copy;        //底下的三个按钮
     OverAllData all=OverAllData.alldata;
 
@@ -35,8 +37,8 @@ public class Network_details extends AppCompatActivity
         InitViewUnit();
         //添加控件监听器
         AddUnitActionListener();
-        //初始化该页面的Handler控件
-        InitNetworkHandler();
+        //页面刷新
+        RefreshUI();
     }
 
     //初始化控件
@@ -46,7 +48,7 @@ public class Network_details extends AppCompatActivity
         button_back=(Button)findViewById(R.id.button_back);
         button_clear=(Button)findViewById(R.id.button_clear);
         button_copy=(Button)findViewById(R.id.button_copy);
-        text_details.setGravity(Gravity.BOTTOM);        //始终在最底下
+        text_scroll=(ScrollView)findViewById(R.id.network_scroll);
     }
 
     //添加控件监听器
@@ -90,23 +92,19 @@ public class Network_details extends AppCompatActivity
         });
     }
 
-    //初始化该页面的Handler控件
-    @SuppressLint("HandlerLeak")
-    private void InitNetworkHandler()
+    //页面刷新
+    private void RefreshUI()
     {
-        all.network_handler_ui=new Handler(){
+        final Handler han=new Handler();
+        han.postDelayed(new Runnable() {
             @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what){
-                    case 1:
-                        //更新消息
-                        all.network_message.append(all.GetFullTime()+"\n"+msg.obj.toString()+"\n");
-                        //更新TextViewer
-                        text_details.setText(all.network_message);
-                        break;
-                }
+            public void run() {
+                all.network_message.append(String.valueOf(System.currentTimeMillis()) + String.valueOf(System.currentTimeMillis())+ String.valueOf(System.currentTimeMillis())+"\n");
+                text_details.setText(all.network_message);
+                text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+                han.postDelayed(this,10000);
             }
-        };
+        }, 0);
     }
 
     //刷新TextView

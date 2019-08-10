@@ -83,11 +83,6 @@ public class OverAllData
     public String CHART_MAX_SHIDU="100";     //图表中湿度最大值
     /*存储所有数据的结构*/
 
-    /*Handler事件控制器*/
-    Handler main_handler_ui=null;
-    Handler network_handler_ui=null;
-    /*Handler事件控制器*/
-
     //获取数据的网址
     public final String info_web_url="http://47.100.206.8:6500/getinfo.php";
     //图表的刷新时间

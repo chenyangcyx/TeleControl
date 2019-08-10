@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity
     Switch sw_pqs,sw_zgl,sw_gg,sw_bgd;
     WebView ui_chart;
     ControlMethod con=new ControlMethod();
+    Handler han=null;
     OverAllData all=OverAllData.alldata;
 
     @Override
@@ -41,10 +43,10 @@ public class MainActivity extends AppCompatActivity
         //初始化该页面的Handler控件
         InitMainHandler();
         //开启服务器模式消息接收线程
-        all.thread_web=new ReceiveMessageFromWeb(all.main_handler_ui,all.network_handler_ui);
+        all.thread_web=new ReceiveMessageFromWeb(han);
         all.thread_web.start();
         //开启局域网模式消息接收线程
-        all.thread_lan=new ReceiveMessageFromLAN(all.main_handler_ui,all.network_handler_ui);
+        all.thread_lan=new ReceiveMessageFromLAN(han);
         all.thread_lan.start();
     }
 
@@ -225,8 +227,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressLint("HandlerLeak")
     public void InitMainHandler()
     {
-        //创建Handler事件
-        all.main_handler_ui=new Handler(){
+        //main页面的Handler事件初始化
+        this.han=new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {

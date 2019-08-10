@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Network_details">
 
-    <TextView
-        android:id="@+id/details_text"
-        android:layout_width="match_parent"
-        android:layout_height="470dp"
-        android:editable="false"
-        android:fadeScrollbars="false"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.0" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/appBarLayout"
 
@@ -39,34 +25,34 @@
 
     <Button
         android:id="@+id/button_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90sp"
+        android:layout_height="45sp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="8dp"
         android:text="返回"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_clear"
-        app:layout_constraintTop_toBottomOf="@+id/details_text"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943" />
 
     <Button
         android:id="@+id/button_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_width="90sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="清空"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_back"
         app:layout_constraintStart_toEndOf="@+id/button_copy"
-        app:layout_constraintTop_toBottomOf="@+id/details_text"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943" />
 
     <Button
         android:id="@+id/button_copy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90sp"
+        android:layout_height="45sp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="8dp"
         android:text="复制"
@@ -74,8 +60,38 @@
         app:layout_constraintEnd_toStartOf="@+id/button_clear"
         app:layout_constraintHorizontal_bias="0.63"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_text"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.943" />
+
+    <ScrollView
+        android:id="@+id/network_scroll"
+        android:layout_width="300dp"
+        android:layout_height="460dp"
+        android:layout_marginBottom="8dp"
+        android:fadeScrollbars="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
