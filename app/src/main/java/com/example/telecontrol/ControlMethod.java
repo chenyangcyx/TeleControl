@@ -1,5 +1,7 @@
 package com.example.telecontrol;
 
+import android.os.Message;
+
 public class ControlMethod
 {
     OverAllData all=OverAllData.alldata;

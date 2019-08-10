@@ -62,11 +62,6 @@ public class OverAllData
     public int guangzhao_min=guangzhao_min_init;    //光照控制最低值
     public int guangzhao_max=guangzhao_max_inti;    //光照控制最高值
 
-    public boolean switch_pqs_state=false;          //开关-排气扇的状态
-    public boolean switch_zgl_state=false;          //开关-遮光帘的状态
-    public boolean switch_gg_state=false;           //开关-灌溉的状态
-    public boolean switch_bgd_state=false;          //开关-补光灯的状态
-
     public long last_open_gg_time=0;                 //上次开启灌溉按钮的时间
     public void RefreshOpenGGTime(){this.last_open_gg_time=System.currentTimeMillis();}     //更新上次开启灌溉按钮的时间
     public boolean IfCloudOpenGG(){return System.currentTimeMillis()-this.last_open_gg_time>1*60*1000;}       //判断是否能够开启灌溉按钮

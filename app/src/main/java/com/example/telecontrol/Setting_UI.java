@@ -93,11 +93,10 @@ public class Setting_UI extends AppCompatActivity {
                 all.guangzhao_max=setting_gzmax.getText().toString().equals("")?0:Integer.parseInt(setting_gzmax.getText().toString());
                 if(!CheckScopen().equals("OK"))
                 {
-                    ShowToastMessage(CheckScopen());
-                    return;
-                }
-                Intent intent=new Intent(Setting_UI.this,MainActivity.class);
-                startActivity(intent);
+                ShowToastMessage(CheckScopen());
+                return;
+            }
+            Setting_UI.this.finish();
             }
         });
 

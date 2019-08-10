@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/details_text"
         android:layout_width="match_parent"
-        android:layout_height="597dp"
+        android:layout_height="470dp"
         android:editable="false"
         android:fadeScrollbars="false"
         android:textSize="18sp"
@@ -41,6 +41,8 @@
         android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
         android:text="返回"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,24 +54,28 @@
         android:id="@+id/button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
         android:text="清空"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_back"
         app:layout_constraintStart_toEndOf="@+id/button_copy"
         app:layout_constraintTop_toBottomOf="@+id/details_text"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.303" />
 
     <Button
         android:id="@+id/button_copy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
         android:text="复制"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_clear"
         app:layout_constraintHorizontal_bias="0.63"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_text"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.303" />
 
 
 </android.support.constraint.ConstraintLayout>

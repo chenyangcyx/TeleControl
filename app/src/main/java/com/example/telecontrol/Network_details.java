@@ -1,6 +1,7 @@
 package com.example.telecontrol;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -55,8 +56,7 @@ public class Network_details extends AppCompatActivity
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Network_details.this,MainActivity.class);
-                startActivity(intent);
+                Network_details.this.finish();
             }
         });
 

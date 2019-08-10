@@ -64,11 +64,6 @@ public class MainActivity extends AppCompatActivity
         sw_zgl=(Switch)findViewById(R.id.switch_zgl);
         sw_gg=(Switch)findViewById(R.id.switch_gg);
         sw_bgd=(Switch)findViewById(R.id.switch_bgd);
-        //初始化开关控件
-        sw_pqs.setChecked(all.switch_pqs_state);
-        sw_zgl.setChecked(all.switch_zgl_state);
-        sw_gg.setChecked(all.switch_gg_state);
-        sw_bgd.setChecked(all.switch_bgd_state);
         //初始化WebView
         ui_chart=(WebView)findViewById(R.id.main_chart);
         ui_chart.clearCache(true);
@@ -146,13 +141,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     con.PQS_Control("ON");
                     ShowToastMessage("打开排气扇");
-                    all.switch_pqs_state=true;
                 }
                 else
                 {
                     con.PQS_Control("OFF");
                     ShowToastMessage("关闭排气扇");
-                    all.switch_pqs_state=false;
                 }
             }
         });
@@ -166,13 +159,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     con.ZGL_Control("ON");
                     ShowToastMessage("打开遮光帘");
-                    all.switch_zgl_state=true;
                 }
                 else
                 {
                     con.ZGL_Control("OFF");
                     ShowToastMessage("关闭遮光帘");
-                    all.switch_zgl_state=false;
                 }
             }
         });
@@ -188,12 +179,10 @@ public class MainActivity extends AppCompatActivity
                     {
                         con.GG_Control("ON");
                         ShowToastMessage("打开灌溉");
-                        all.switch_gg_state=true;
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 sw_gg.setChecked(false);
-                                all.switch_gg_state=false;
                                 ShowToastMessage("灌溉完毕，关闭");
                             }
                         }, all.GG_TIME);
@@ -209,7 +198,6 @@ public class MainActivity extends AppCompatActivity
                 {
                     con.GG_Control("OFF");
                     ShowToastMessage("关闭灌溉");
-                    all.switch_gg_state=false;
                 }
             }
         });
@@ -223,13 +211,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     con.BGD_Control("ON");
                     ShowToastMessage("打开补光灯");
-                    all.switch_bgd_state=true;
                 }
                 else
                 {
                     con.BGD_Control("OFF");
                     ShowToastMessage("关闭补光灯");
-                    all.switch_bgd_state=false;
                 }
             }
         });
@@ -253,7 +239,7 @@ public class MainActivity extends AppCompatActivity
                         //设置当前数值
                         ui_wendu.setText("" + all.current_wendu + " ℃");
                         ui_shidu.setText("" + all.current_shidu + " %");
-                        ui_guangzhaoqiangdu.setText("" + all.current_gz);
+                        ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
                         //更新图表
                         RefreshChart();
                         //监控
@@ -268,7 +254,7 @@ public class MainActivity extends AppCompatActivity
                         //设置当前数值
                         ui_wendu.setText("" + all.current_wendu + " ℃");
                         ui_shidu.setText("" + all.current_shidu + " %");
-                        ui_guangzhaoqiangdu.setText("" + all.current_gz);
+                        ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
                         //更新图表
                         RefreshChart();
                         //监控
@@ -333,7 +319,6 @@ public class MainActivity extends AppCompatActivity
             if (!sw_zgl.isChecked()) {
                 con.ZGL_Control("ON");
                 sw_zgl.setChecked(true);
-                all.switch_zgl_state=true;
                 Toast.makeText(MainActivity.this, "温度过高，打开遮光帘", Toast.LENGTH_LONG).show();
             }
         }
@@ -341,14 +326,12 @@ public class MainActivity extends AppCompatActivity
             if (sw_zgl.isChecked()) {
                 con.ZGL_Control("OFF");
                 sw_zgl.setChecked(false);
-                all.switch_zgl_state=false;
                 Toast.makeText(MainActivity.this, "温度过低，关闭遮光帘", Toast.LENGTH_LONG).show();
             }
         }
         if (all.current_shidu > all.shidu_max && !sw_pqs.isChecked()) {
             con.PQS_Control("ON");
             sw_pqs.setChecked(true);
-            all.switch_pqs_state=true;
             Toast.makeText(MainActivity.this, "湿度过高，开启排气扇", Toast.LENGTH_LONG).show();
         }
         if (all.current_shidu < all.shidu_min && !sw_gg.isChecked()) {
@@ -356,13 +339,11 @@ public class MainActivity extends AppCompatActivity
             {
                 con.GG_Control("ON");
                 sw_gg.setChecked(true);
-                all.switch_gg_state=true;
                 Toast.makeText(MainActivity.this, "湿度过低，开启灌溉", Toast.LENGTH_LONG).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         sw_gg.setChecked(false);
-                        all.switch_gg_state=false;
                         ShowToastMessage("灌溉完毕，关闭灌溉");
                     }
                 }, all.GG_TIME);
