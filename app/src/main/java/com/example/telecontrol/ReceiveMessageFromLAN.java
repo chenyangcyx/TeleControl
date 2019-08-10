@@ -5,28 +5,29 @@ import android.os.Message;
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ReceiveMessageFromLAN extends Thread
 {
-    OverAllData all=OverAllData.alldata;
+    private OverAllData all=OverAllData.alldata;
 
-    private ServerSocket server;
-    private DataInputStream in;
-    Handler handler;
+    private Handler handler;
 
-    public ReceiveMessageFromLAN(Handler handler)
+    ReceiveMessageFromLAN(Handler handler)
     {
         this.handler=handler;
     }
 
     public void run() {
         try {
-            server = new ServerSocket(all.lan_app_port);
+            ServerSocket server = new ServerSocket(all.lan_app_port);
+            //noinspection InfiniteLoopStatement
             while (true)
             {
-                Socket so=server.accept();
-                in=new DataInputStream(so.getInputStream());
+                Socket so= server.accept();
+                DataInputStream in = new DataInputStream(so.getInputStream());
                 byte[] receice=new byte[128];
+                //noinspection ResultOfMethodCallIgnored
                 in.read(receice);
                 in.close();
 
@@ -34,6 +35,8 @@ public class ReceiveMessageFromLAN extends Thread
                 message.what=all.MESSAGE_KIND_LAN;
                 message.obj=new String(receice);
                 handler.sendMessage(message);
+
+                all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，收到信息："+ Arrays.toString(receice));
             }
         }catch (Exception e) {
             e.printStackTrace();

@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
@@ -51,23 +50,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     //初始化控件
+    @SuppressLint("SetJavaScriptEnabled")
     private void InitViewUnit()
     {
         //获取button控件
-        main_setting=(Button)findViewById(R.id.main_setting);
-        main_network=(Button)findViewById(R.id.main_network);
-        main_details=(Button)findViewById(R.id.main_details);
+        main_setting= findViewById(R.id.main_setting);
+        main_network= findViewById(R.id.main_network);
+        main_details= findViewById(R.id.main_details);
         //获取三个文本框控件
-        ui_wendu=(EditText) findViewById(R.id.text_wendu);
-        ui_shidu=(EditText)findViewById(R.id.text_shidu);
-        ui_guangzhaoqiangdu=(EditText)findViewById(R.id.text_gzqd);
+        ui_wendu= findViewById(R.id.text_wendu);
+        ui_shidu= findViewById(R.id.text_shidu);
+        ui_guangzhaoqiangdu= findViewById(R.id.text_gzqd);
         //获取四个开关控件
-        sw_pqs =(Switch)findViewById(R.id.switch_pqs);
-        sw_zgl=(Switch)findViewById(R.id.switch_zgl);
-        sw_gg=(Switch)findViewById(R.id.switch_gg);
-        sw_bgd=(Switch)findViewById(R.id.switch_bgd);
+        sw_pqs = findViewById(R.id.switch_pqs);
+        sw_zgl= findViewById(R.id.switch_zgl);
+        sw_gg= findViewById(R.id.switch_gg);
+        sw_bgd= findViewById(R.id.switch_bgd);
         //初始化WebView
-        ui_chart=(WebView)findViewById(R.id.main_chart);
+        ui_chart= findViewById(R.id.main_chart);
         ui_chart.clearCache(true);
         ui_chart.clearHistory();
         ui_chart.requestFocus();
@@ -229,6 +229,8 @@ public class MainActivity extends AppCompatActivity
     {
         //main页面的Handler事件初始化
         this.han=new Handler(){
+            @SuppressLint("SetTextI18n")
+            @SuppressWarnings("NullableProblems")
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -270,9 +272,9 @@ public class MainActivity extends AppCompatActivity
     //更新Web图表
     public void RefreshChart()
     {
-        String wendu_array="[]";
-        String shidu_array="[]";
-        String time_array="[]";
+        StringBuilder wendu_array=new StringBuilder("[]");
+        StringBuilder shidu_array=new StringBuilder("[]");
+        StringBuilder time_array=new StringBuilder("[]");
         int length=all.data_time.size();
         if(length==0)
         {
@@ -282,33 +284,39 @@ public class MainActivity extends AppCompatActivity
         }
         if(length-all.CHART_MAX_SIZE<0)
         {
-            wendu_array="['"+all.data_wendu.get(0).toString()+"'";
-            shidu_array="['"+all.data_shidu.get(0).toString()+"'";
-            time_array="['"+all.data_time.get(0)+"'";
+            wendu_array.delete(0,wendu_array.length());
+            wendu_array.append("['").append(all.data_wendu.get(0).toString()).append("'");
+            shidu_array.delete(0,shidu_array.length());
+            shidu_array.append("['").append(all.data_shidu.get(0).toString()).append("'");
+            time_array.delete(0,time_array.length());
+            time_array.append("['").append(all.data_time.get(0)).append("'");
             for(int i=1;i<length;i++)
             {
-                wendu_array+=",'"+all.data_wendu.get(i).toString()+"'";
-                shidu_array+=",'"+all.data_shidu.get(i).toString()+"'";
-                time_array+=",'"+all.data_time.get(i)+"'";
+                wendu_array.append(",'").append(all.data_wendu.get(i).toString()).append("'");
+                shidu_array.append(",'").append(all.data_shidu.get(i).toString()).append("'");
+                time_array.append(",'").append(all.data_time.get(i)).append("'");
             }
-            wendu_array+="]";
-            shidu_array+="]";
-            time_array+="]";
+            wendu_array.append("]");
+            shidu_array.append("]");
+            time_array.append("]");
         }
         else
         {
-            wendu_array="['"+all.data_wendu.get(length-all.CHART_MAX_SIZE).toString()+"'";
-            shidu_array="['"+all.data_shidu.get(length-all.CHART_MAX_SIZE).toString()+"'";
-            time_array="['"+all.data_time.get(length-all.CHART_MAX_SIZE)+"'";
+            wendu_array.delete(0,wendu_array.length());
+            wendu_array.append("['").append(all.data_wendu.get(length - all.CHART_MAX_SIZE).toString()).append("'");
+            shidu_array.delete(0,shidu_array.length());
+            shidu_array.append("['").append(all.data_shidu.get(length - all.CHART_MAX_SIZE).toString()).append("'");
+            time_array.delete(0,time_array.length());
+            time_array.append("['").append(all.data_time.get(length - all.CHART_MAX_SIZE)).append("'");
             for(int i=length-all.CHART_MAX_SIZE+1;i<length;i++)
             {
-                wendu_array+=",'"+all.data_wendu.get(i).toString()+"'";
-                shidu_array+=",'"+all.data_shidu.get(i).toString()+"'";
-                time_array+=",'"+all.data_time.get(i)+"'";
+                wendu_array.append(",'").append(all.data_wendu.get(i).toString()).append("'");
+                shidu_array.append(",'").append(all.data_shidu.get(i).toString()).append("'");
+                time_array.append(",'").append(all.data_time.get(i)).append("'");
             }
-            wendu_array+="]";
-            shidu_array+="]";
-            time_array+="]";
+            wendu_array.append("]");
+            shidu_array.append("]");
+            time_array.append("]");
         }
         ui_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
                 ","+all.CHART_MIN_WENDU+","+all.CHART_MAX_WENDU+","+all.CHART_MIN_SHIDU+","+all.CHART_MAX_SHIDU+")");

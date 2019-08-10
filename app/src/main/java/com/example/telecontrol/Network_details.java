@@ -1,20 +1,14 @@
 package com.example.telecontrol;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,11 +38,11 @@ public class Network_details extends AppCompatActivity
     //初始化控件
     public void InitViewUnit()
     {
-        text_details=(TextView) findViewById(R.id.details_text);
-        button_back=(Button)findViewById(R.id.button_back);
-        button_clear=(Button)findViewById(R.id.button_clear);
-        button_copy=(Button)findViewById(R.id.button_copy);
-        text_scroll=(ScrollView)findViewById(R.id.network_scroll);
+        text_details= findViewById(R.id.details_text);
+        button_back= findViewById(R.id.button_back);
+        button_clear= findViewById(R.id.button_clear);
+        button_copy= findViewById(R.id.button_copy);
+        text_scroll= findViewById(R.id.network_scroll);
     }
 
     //添加控件监听器
@@ -81,9 +75,16 @@ public class Network_details extends AppCompatActivity
                     //创建普通字符型ClipData
                     ClipData mClipData=ClipData.newPlainText("Label",all.network_message);
                     //将ClipData内容放到系统剪切板里
-                    cm.setPrimaryClip(mClipData);
-                    //显示消息
-                    ShowToastMessage("已复制到剪切板");
+                    if (cm != null) {
+                        cm.setPrimaryClip(mClipData);
+                        //显示消息
+                        ShowToastMessage("已复制到剪切板");
+                    }
+                    else
+                    {
+                        //显示消息
+                        ShowToastMessage("复制到剪切板失败");
+                    }
                 }
                 catch(Exception e){
                     e.printStackTrace();
@@ -99,10 +100,9 @@ public class Network_details extends AppCompatActivity
         han.postDelayed(new Runnable() {
             @Override
             public void run() {
-                all.network_message.append(String.valueOf(System.currentTimeMillis()) + String.valueOf(System.currentTimeMillis())+ String.valueOf(System.currentTimeMillis())+"\n");
-                text_details.setText(all.network_message);
+                RefreshTextViewer();
                 text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
-                han.postDelayed(this,10000);
+                han.postDelayed(this,all.NETWORK_MESSAGE_REFRESH_INTERVAL);
             }
         }, 0);
     }

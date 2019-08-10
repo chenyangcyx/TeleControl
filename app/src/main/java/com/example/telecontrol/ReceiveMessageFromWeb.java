@@ -10,21 +10,21 @@ import java.net.URL;
 
 public class ReceiveMessageFromWeb extends Thread
 {
-    OverAllData all=OverAllData.alldata;
+    private OverAllData all=OverAllData.alldata;
 
-    Handler handler;
+    private Handler handler;
 
-    public ReceiveMessageFromWeb(Handler handler)
+    ReceiveMessageFromWeb(Handler handler)
     {
         this.handler=handler;
     }
 
-    public String GetMessageFromWeb()
+    private String GetMessageFromWeb()
     {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         try {
             byte[] data = new byte[1024];
-            int len = 0;
+            int len;
             URL url = new URL(all.info_web_url);
             HttpURLConnection conn;
             conn = (HttpURLConnection) url.openConnection();
@@ -41,6 +41,7 @@ public class ReceiveMessageFromWeb extends Thread
 
     public void run() {
         try {
+            //noinspection InfiniteLoopStatement
             while (true)
             {
                 sleep(all.ChartRefreshTime);
@@ -48,6 +49,7 @@ public class ReceiveMessageFromWeb extends Thread
                 message.what = all.MESSAGE_KIND_WEB;
                 message.obj = GetMessageFromWeb();
                 handler.sendMessage(message);
+                all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
             }
         }catch (Exception e) {
             e.printStackTrace();

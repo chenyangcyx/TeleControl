@@ -1,6 +1,6 @@
 package com.example.telecontrol;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,19 +29,20 @@ public class Setting_UI extends AppCompatActivity {
     }
 
     //初始化控件
+    @SuppressLint("SetTextI18n")
     private void InitViewUnit()
     {
-        setting_reset=(Button)findViewById(R.id.setting_reset);
-        setting_enter=(Button)findViewById(R.id.setting_enter);
-        setting_changemode=(Button)findViewById(R.id.setting_changemode);
-        setting_ip=(EditText)findViewById(R.id.setting_ip);
-        setting_port=(EditText)findViewById(R.id.setting_port);
-        setting_wendumin=(EditText)findViewById(R.id.setting_wendumin);
-        setting_wendumax=(EditText)findViewById(R.id.setting_wendumax);
-        setting_shidumin=(EditText)findViewById(R.id.setting_shidumin);
-        setting_shidumax=(EditText)findViewById(R.id.setting_shidumax);
-        setting_gzmin=(EditText)findViewById(R.id.setting_guangzhaomin);
-        setting_gzmax=(EditText)findViewById(R.id.setting_guangzhaomax);
+        setting_reset= findViewById(R.id.setting_reset);
+        setting_enter= findViewById(R.id.setting_enter);
+        setting_changemode= findViewById(R.id.setting_changemode);
+        setting_ip= findViewById(R.id.setting_ip);
+        setting_port= findViewById(R.id.setting_port);
+        setting_wendumin= findViewById(R.id.setting_wendumin);
+        setting_wendumax= findViewById(R.id.setting_wendumax);
+        setting_shidumin= findViewById(R.id.setting_shidumin);
+        setting_shidumax= findViewById(R.id.setting_shidumax);
+        setting_gzmin= findViewById(R.id.setting_guangzhaomin);
+        setting_gzmax= findViewById(R.id.setting_guangzhaomax);
         setting_wendumin.setText(Integer.toString(all.wendu_min));
         setting_wendumax.setText(Integer.toString(all.wendu_max));
         setting_shidumin.setText(Integer.toString(all.shidu_min));
@@ -51,9 +52,9 @@ public class Setting_UI extends AppCompatActivity {
         //初始化服务器IP和端口的输入框
         setting_ip.setText("    "+all.setting_ip);
         if(all.LINK_MODE==all.LINK_MODE_WEB)
-            setting_port.setText("    "+Integer.toString(all.setting_port)+"    (服务器模式)");
+            setting_port.setText("    "+ all.setting_port +"    (服务器模式)");
         else
-            setting_port.setText("    "+Integer.toString(all.setting_port)+"      (局域网模式)");
+            setting_port.setText("    "+ all.setting_port +"      (局域网模式)");
         setting_ip.setFocusable(false);
         setting_port.setFocusable(false);
     }
@@ -63,6 +64,7 @@ public class Setting_UI extends AppCompatActivity {
     {
         //重置按钮
         setting_reset.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v)
             {
@@ -102,6 +104,7 @@ public class Setting_UI extends AppCompatActivity {
 
         //切换模式按钮
         setting_changemode.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 all.LINK_MODE=1-all.LINK_MODE;
@@ -111,7 +114,7 @@ public class Setting_UI extends AppCompatActivity {
                     all.setting_ip=all.server_ip;                 //更换连接的ip
                     all.setting_port=all.server_port;             //更换连接的端口
                     setting_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    setting_port.setText("    "+Integer.toString(all.setting_port)+"    (服务器模式)");  //更换显示的文本框内容，port
+                    setting_port.setText("    "+ all.setting_port +"    (服务器模式)");  //更换显示的文本框内容，port
                 }
                 else                        //局域网模式
                 {
@@ -119,7 +122,7 @@ public class Setting_UI extends AppCompatActivity {
                     all.setting_ip=all.lan_chip_ip;                 //更换连接的ip
                     all.setting_port=all.lan_chip_port;             //更换连接的端口
                     setting_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    setting_port.setText("    "+Integer.toString(all.setting_port)+"      (局域网模式)");  //更换显示的文本框内容，port
+                    setting_port.setText("    "+ all.setting_port +"      (局域网模式)");  //更换显示的文本框内容，port
                 }
             }
         });
