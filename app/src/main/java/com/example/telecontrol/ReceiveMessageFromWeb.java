@@ -12,11 +12,12 @@ public class ReceiveMessageFromWeb extends Thread
 {
     OverAllData all=OverAllData.alldata;
 
-    Handler handler;
+    Handler main_handler,network_handler;
 
-    public ReceiveMessageFromWeb(Handler han)
+    public ReceiveMessageFromWeb(Handler main_handler,Handler network_handler)
     {
-        this.handler=han;
+        this.main_handler=main_handler;
+        this.network_handler=network_handler;
     }
 
     public String GetMessageFromWeb()
@@ -47,7 +48,7 @@ public class ReceiveMessageFromWeb extends Thread
                 Message message = new Message();
                 message.what = all.MESSAGE_KIND_WEB;
                 message.obj = GetMessageFromWeb();
-                handler.sendMessage(message);
+                main_handler.sendMessage(message);
             }
         }catch (Exception e) {
             e.printStackTrace();

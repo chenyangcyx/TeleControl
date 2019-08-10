@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-    public class Setting_UI extends AppCompatActivity {
+public class Setting_UI extends AppCompatActivity {
 
     Button setting_enter,setting_reset,setting_changemode;
     EditText setting_ip,setting_port,setting_wendumin,setting_wendumax,setting_shidumin,setting_shidumax,setting_gzmin,setting_gzmax;
@@ -18,7 +18,7 @@ import android.widget.Toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting__ui);
+        setContentView(R.layout.activity_setting_ui);
         //设置setting界面的状态栏
         Toolbar toolbar = findViewById(R.id.setting_toolbar);
         setSupportActionBar(toolbar);

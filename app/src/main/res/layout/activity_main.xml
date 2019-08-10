@@ -188,7 +188,7 @@
 
     <WebView
         android:id="@+id/main_chart"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="275dp"
         android:layerType="software"
         android:paddingLeft="0dp"
@@ -202,7 +202,7 @@
         app:layout_constraintVertical_bias="0.995" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/main_details"
         android:layout_width="113dp"
         android:layout_height="46dp"
         android:text="详细信息"
@@ -215,7 +215,7 @@
         app:layout_constraintVertical_bias="0.515" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/main_network"
         android:layout_width="113dp"
         android:layout_height="46dp"
         android:text="网络信息"

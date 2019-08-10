@@ -1,5 +1,7 @@
 package com.example.telecontrol;
 
+import android.os.Handler;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,6 +88,11 @@ public class OverAllData
     public String CHART_MAX_SHIDU="100";     //图表中湿度最大值
     /*存储所有数据的结构*/
 
+    /*Handler事件控制器*/
+    Handler main_handler_ui=null;
+    Handler network_handler_ui=null;
+    /*Handler事件控制器*/
+
     //获取数据的网址
     public final String info_web_url="http://47.100.206.8:6500/getinfo.php";
     //图表的刷新时间
@@ -106,6 +113,8 @@ public class OverAllData
     {
         return df.format(System.currentTimeMillis());
     }
+    SimpleDateFormat df2=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public String GetFullTime(){return df2.format(System.currentTimeMillis());}
 
     //解析收到的信息，服务器模式
     public void EncodeReceiveMessageFromWeb(String str)
@@ -149,4 +158,8 @@ public class OverAllData
         this.data_shidu.add(shidu);
         this.data_gz.add(guangzhao);
     }
+
+    /*网络信息*/
+    StringBuilder network_message=new StringBuilder();      //用来存储所有信息的变量
+    /*网络信息*/
 }

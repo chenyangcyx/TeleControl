@@ -12,11 +12,12 @@ public class ReceiveMessageFromLAN extends Thread
 
     private ServerSocket server;
     private DataInputStream in;
-    Handler handler;
+    Handler main_handler,network_handler;
 
-    public ReceiveMessageFromLAN(Handler han)
+    public ReceiveMessageFromLAN(Handler main_handler,Handler network_handler)
     {
-        this.handler=han;
+        this.main_handler=main_handler;
+        this.network_handler=network_handler;
     }
 
     public void run() {
@@ -33,7 +34,7 @@ public class ReceiveMessageFromLAN extends Thread
                 Message message=new Message();
                 message.what=all.MESSAGE_KIND_LAN;
                 message.obj=new String(receice);
-                handler.sendMessage(message);
+                main_handler.sendMessage(message);
             }
         }catch (Exception e) {
             e.printStackTrace();

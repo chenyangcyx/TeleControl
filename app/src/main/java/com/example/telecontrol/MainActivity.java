@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    Button main_setting;
+    Button main_setting,main_network,main_details;
     EditText ui_wendu,ui_shidu,ui_guangzhaoqiangdu;
     Switch sw_pqs,sw_zgl,sw_gg,sw_bgd;
     WebView ui_chart;
@@ -38,11 +38,13 @@ public class MainActivity extends AppCompatActivity
         InitViewUnit();
         //添加控件监听器
         AddUnitActionListener();
+        //初始化该页面的Handler控件
+        InitMainHandler();
         //开启服务器模式消息接收线程
-        all.thread_web=new ReceiveMessageFromWeb(handler);
+        all.thread_web=new ReceiveMessageFromWeb(all.main_handler_ui,all.network_handler_ui);
         all.thread_web.start();
         //开启局域网模式消息接收线程
-        all.thread_lan=new ReceiveMessageFromLAN(handler);
+        all.thread_lan=new ReceiveMessageFromLAN(all.main_handler_ui,all.network_handler_ui);
         all.thread_lan.start();
     }
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity
     {
         //获取button控件
         main_setting=(Button)findViewById(R.id.main_setting);
+        main_network=(Button)findViewById(R.id.main_network);
+        main_details=(Button)findViewById(R.id.main_details);
         //获取三个文本框控件
         ui_wendu=(EditText) findViewById(R.id.text_wendu);
         ui_shidu=(EditText)findViewById(R.id.text_shidu);
@@ -115,6 +119,21 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,Setting_UI.class);
                 startActivity(intent);
+            }
+        });
+        //网络信息按钮
+        main_network.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,Network_details.class);
+                startActivity(intent);
+            }
+        });
+        //详细信息按钮
+        main_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
         //排气扇开关监听
@@ -216,6 +235,50 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    //初始化该页面的Handler控件
+    @SuppressLint("HandlerLeak")
+    public void InitMainHandler()
+    {
+        //创建Handler事件
+        all.main_handler_ui=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:             //服务器模式
+                        //检查模式
+                        if(all.LINK_MODE!=all.LINK_MODE_WEB)
+                            break;
+                        //消息解析
+                        all.EncodeReceiveMessageFromWeb(msg.obj.toString());
+                        //设置当前数值
+                        ui_wendu.setText("" + all.current_wendu + " ℃");
+                        ui_shidu.setText("" + all.current_shidu + " %");
+                        ui_guangzhaoqiangdu.setText("" + all.current_gz);
+                        //更新图表
+                        RefreshChart();
+                        //监控
+                        MonitorValue();
+                        break;
+                    case 2:             //局域网模式
+                        //检查模式
+                        if(all.LINK_MODE!=all.LINK_MODE_LAN)
+                            break;
+                        //消息解析
+                        all.EncodeReceiveMessageFromLAN(msg.obj.toString());
+                        //设置当前数值
+                        ui_wendu.setText("" + all.current_wendu + " ℃");
+                        ui_shidu.setText("" + all.current_shidu + " %");
+                        ui_guangzhaoqiangdu.setText("" + all.current_gz);
+                        //更新图表
+                        RefreshChart();
+                        //监控
+                        MonitorValue();
+                        break;
+                }
+            }
+        };
+    }
+
     //更新Web图表
     public void RefreshChart()
     {
@@ -307,46 +370,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
-    //创建Handler事件
-    @SuppressLint("HandlerLeak")
-    Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:             //服务器模式
-                    //检查模式
-                    if(all.LINK_MODE!=all.LINK_MODE_WEB)
-                        break;
-                    //消息解析
-                    all.EncodeReceiveMessageFromWeb(msg.obj.toString());
-                    //设置当前数值
-                    ui_wendu.setText("" + all.current_wendu + " ℃");
-                    ui_shidu.setText("" + all.current_shidu + " %");
-                    ui_guangzhaoqiangdu.setText("" + all.current_gz);
-                    //更新图表
-                    RefreshChart();
-                    //监控
-                        MonitorValue();
-                    break;
-                case 2:             //局域网模式
-                    //检查模式
-                    if(all.LINK_MODE!=all.LINK_MODE_LAN)
-                        break;
-                    //消息解析
-                    all.EncodeReceiveMessageFromLAN(msg.obj.toString());
-                    //设置当前数值
-                    ui_wendu.setText("" + all.current_wendu + " ℃");
-                    ui_shidu.setText("" + all.current_shidu + " %");
-                    ui_guangzhaoqiangdu.setText("" + all.current_gz);
-                    //更新图表
-                    RefreshChart();
-                    //监控
-                    MonitorValue();
-                    break;
-            }
-        }
-    };
 
     //发送Toast文本
     public void ShowToastMessage(String str)
