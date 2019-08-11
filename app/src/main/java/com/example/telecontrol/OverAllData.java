@@ -152,7 +152,7 @@ class OverAllData
 
     /*网络信息*/
     StringBuilder network_message=new StringBuilder();          //用来存储所有信息的变量
-    final int NETWORK_MESSAGE_REFRESH_INTERVAL=500;      //网络信息页面的刷新时间间隔
+    final int NETWORK_MESSAGE_REFRESH_INTERVAL=5000;      //网络信息页面的刷新时间间隔
     //记录网络信息
     void RecordNetworkMessage(String str){
         network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}

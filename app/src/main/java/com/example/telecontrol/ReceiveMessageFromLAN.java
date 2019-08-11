@@ -36,7 +36,8 @@ public class ReceiveMessageFromLAN extends Thread
                 message.obj=new String(receice);
                 handler.sendMessage(message);
 
-                all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，收到信息："+ Arrays.toString(receice));
+                if(all.LINK_MODE==all.LINK_MODE_LAN)
+                    all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，收到信息："+ Arrays.toString(receice));
             }
         }catch (Exception e) {
             e.printStackTrace();

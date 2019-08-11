@@ -65,16 +65,17 @@
 
     <ScrollView
         android:id="@+id/network_scroll"
-        android:layout_width="300dp"
-        android:layout_height="460dp"
+        android:layout_width="290dp"
+        android:layout_height="410dp"
         android:layout_marginBottom="8dp"
         android:fadeScrollbars="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44">
+        app:layout_constraintVertical_bias="0.55">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,9 +90,39 @@
                 android:layout_height="match_parent"
                 android:fadeScrollbars="false"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
+
+    <Switch
+        android:id="@+id/switch_autodown"
+        android:layout_width="133dp"
+        android:layout_height="33dp"
+        android:checked="true"
+        android:text="自动翻页"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.110000014" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="107dp"
+        android:layout_height="31dp"
+        android:text="网络信息"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.110000014" />
 
 
 </android.support.constraint.ConstraintLayout>

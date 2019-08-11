@@ -49,7 +49,8 @@ public class ReceiveMessageFromWeb extends Thread
                 message.what = all.MESSAGE_KIND_WEB;
                 message.obj = GetMessageFromWeb();
                 handler.sendMessage(message);
-                all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
+                if(all.LINK_MODE==all.LINK_MODE_WEB)
+                    all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
             }
         }catch (Exception e) {
             e.printStackTrace();

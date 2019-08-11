@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,10 @@ public class Network_details extends AppCompatActivity
     TextView text_details;      //显示状态信息的框
     ScrollView text_scroll;     //下拉框
     Button button_back,button_clear,button_copy;        //底下的三个按钮
+    Switch switch_autodown;     //是否自动翻页
+
+    boolean if_auto_down=true;  //是否自动翻页
+
     OverAllData all=OverAllData.alldata;
 
     @Override
@@ -31,6 +37,8 @@ public class Network_details extends AppCompatActivity
         InitViewUnit();
         //添加控件监听器
         AddUnitActionListener();
+        //拉倒最下
+        text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
         //页面刷新
         RefreshUI();
     }
@@ -43,6 +51,7 @@ public class Network_details extends AppCompatActivity
         button_clear= findViewById(R.id.button_clear);
         button_copy= findViewById(R.id.button_copy);
         text_scroll= findViewById(R.id.network_scroll);
+        switch_autodown=findViewById(R.id.switch_autodown);
     }
 
     //添加控件监听器
@@ -91,6 +100,14 @@ public class Network_details extends AppCompatActivity
                 }
             }
         });
+
+        //自动翻页按钮
+        switch_autodown.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if_auto_down=isChecked;
+            }
+        });
     }
 
     //页面刷新
@@ -101,7 +118,8 @@ public class Network_details extends AppCompatActivity
             @Override
             public void run() {
                 RefreshTextViewer();
-                text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+                if(if_auto_down)
+                    text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
                 han.postDelayed(this,all.NETWORK_MESSAGE_REFRESH_INTERVAL);
             }
         }, 0);
