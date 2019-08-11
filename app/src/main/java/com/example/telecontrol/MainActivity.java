@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity
     Switch sw_pqs,sw_zgl,sw_gg,sw_bgd;
     WebView ui_chart;
     ControlMethod con=new ControlMethod();
-    Handler han=null;
     OverAllData all=OverAllData.alldata;
+    Handler han=all.handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,9 +44,6 @@ public class MainActivity extends AppCompatActivity
         //开启服务器模式消息接收线程
         all.thread_web=new ReceiveMessageFromWeb(han);
         all.thread_web.start();
-        //开启局域网模式消息接收线程
-        all.thread_lan=new ReceiveMessageFromLAN(han);
-        all.thread_lan.start();
     }
 
     //初始化控件

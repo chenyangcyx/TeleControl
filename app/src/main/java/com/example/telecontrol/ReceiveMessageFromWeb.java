@@ -44,13 +44,15 @@ public class ReceiveMessageFromWeb extends Thread
             //noinspection InfiniteLoopStatement
             while (true)
             {
-                sleep(all.ChartRefreshTime);
+                sleep(all.ReceiveThreadPauseTime);
+                if(all.LINK_MODE!=all.LINK_MODE_WEB)
+                    continue;
                 Message message = new Message();
                 message.what = all.MESSAGE_KIND_WEB;
                 message.obj = GetMessageFromWeb();
                 handler.sendMessage(message);
-                if(all.LINK_MODE==all.LINK_MODE_WEB)
-                    all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
+                all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
+                sleep(all.ChartRefreshTime);
             }
         }catch (Exception e) {
             e.printStackTrace();

@@ -1,10 +1,9 @@
 package com.example.telecontrol;
 
 import android.annotation.SuppressLint;
-
+import android.os.Handler;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -13,31 +12,31 @@ class OverAllData
     static OverAllData alldata=new OverAllData();
 
     /*连接相关*/
-    final String server_ip="47.100.206.8";    //服务器的IP地址
-    final int server_port=6000;              //服务器的端口
-    final String lan_chip_ip="192.168.4.1";  //单片机的IP地址
-    final int lan_chip_port=333;             //单片机的端口
-    final int lan_app_port=5000;             //局域网下APP要监听的端口
+    final String server_ip="47.100.206.8";  //服务器的IP地址
+    final int server_port=6000;             //服务器的端口
+    final String lan_chip_ip="192.168.4.1"; //单片机的IP地址
+    final int lan_chip_port=333;            //单片机的端口
+    final int lan_app_port=5000;            //app在局域网模式下监听的端口
     /*连接相关*/
 
     /*控制命令相关*/
-    final String PQS_OFF_to_ON_WEB="control:A0";         //排气扇OFF到ON，联网模式
-    final String PQS_OFF_to_ON_LAN="A0";         //排气扇OFF到ON，局域网模式
-    final String PQS_ON_to_OFF_WEB="control:A1";         //排气扇ON到OFF，联网模式
-    final String PQS_ON_to_OFF_LAN="A1";         //排气扇ON到OFF，局域网模式
-    final String ZGL_OFF_to_ON_WEB="control:B0";         //遮光帘OFF到ON，联网模式
-    final String ZGL_OFF_to_ON_LAN="B0";         //遮光帘OFF到ON，局域网模式
-    final String ZGL_ON_to_OFF_WEB="control:B1";         //遮光帘ON到OFF，联网模式
-    final String ZGL_ON_to_OFF_LAN="B1";         //遮光帘ON到OFF，局域网模式
-    final String GG_OFF_to_ON_WEB="control:C0";          //灌溉开关OFF到ON，联网模式
-    final String GG_OFF_to_ON_LAN="C0";          //灌溉开关OFF到ON，局域网模式
-    final String GG_ON_to_OFF_WEB="control:C1";          //灌溉开关ON到OFF，联网模式
-    final String GG_ON_to_OFF_LAN="C1";          //灌溉开关ON到OFF，局域网模式
-    final int GG_TIME=10*1000;                   //灌溉时间
-    final String BGD_OFF_to_ON_WEB="control:D0";         //补光灯从OFF到ON，联网模式
-    final String BGD_OFF_to_ON_LAN="D0";         //补光灯从OFF到ON，局域网模式
-    final String BGD_ON_to_OFF_WEB="control:D1";         //补光灯从ON到OFF，联网模式
-    final String BGD_ON_to_OFF_LAN="D1";         //补光灯从ON到OFF，局域网模式
+    final String PQS_OFF_to_ON_WEB="control:A0";        //排气扇OFF到ON，联网模式
+    final String PQS_OFF_to_ON_LAN="A0";                //排气扇OFF到ON，局域网模式
+    final String PQS_ON_to_OFF_WEB="control:A1";        //排气扇ON到OFF，联网模式
+    final String PQS_ON_to_OFF_LAN="A1";                //排气扇ON到OFF，局域网模式
+    final String ZGL_OFF_to_ON_WEB="control:B0";        //遮光帘OFF到ON，联网模式
+    final String ZGL_OFF_to_ON_LAN="B0";                //遮光帘OFF到ON，局域网模式
+    final String ZGL_ON_to_OFF_WEB="control:B1";        //遮光帘ON到OFF，联网模式
+    final String ZGL_ON_to_OFF_LAN="B1";                //遮光帘ON到OFF，局域网模式
+    final String GG_OFF_to_ON_WEB="control:C0";         //灌溉开关OFF到ON，联网模式
+    final String GG_OFF_to_ON_LAN="C0";                 //灌溉开关OFF到ON，局域网模式
+    final String GG_ON_to_OFF_WEB="control:C1";         //灌溉开关ON到OFF，联网模式
+    final String GG_ON_to_OFF_LAN="C1";                 //灌溉开关ON到OFF，局域网模式
+    final int GG_TIME=10*1000;                          //灌溉时间
+    final String BGD_OFF_to_ON_WEB="control:D0";        //补光灯从OFF到ON，联网模式
+    final String BGD_OFF_to_ON_LAN="D0";                //补光灯从OFF到ON，局域网模式
+    final String BGD_ON_to_OFF_WEB="control:D1";        //补光灯从ON到OFF，联网模式
+    final String BGD_ON_to_OFF_LAN="D1";                //补光灯从ON到OFF，局域网模式
     /*控制命令相关*/
 
     /*程序配置*/
@@ -77,15 +76,19 @@ class OverAllData
     int current_gz=0;
     int CHART_MAX_SIZE=8;        //图表最长长度
     String CHART_MIN_WENDU="0";       //图表中温度最小值
-    String CHART_MAX_WENDU="50";      //图表中温度最大值
-    String CHART_MIN_SHIDU="0";       //图表中湿度最小值
+    String CHART_MAX_WENDU="60";      //图表中温度最大值
+    String CHART_MIN_SHIDU="40";       //图表中湿度最小值
     String CHART_MAX_SHIDU="100";     //图表中湿度最大值
     /*存储所有数据的结构*/
 
     //获取数据的网址
     final String info_web_url="http://47.100.206.8:6500/getinfo.php";
     //图表的刷新时间
-    final int ChartRefreshTime=1000;
+    final int ChartRefreshTime=5000;
+    //接收消息线程的暂停时间
+    final int ReceiveThreadPauseTime=50;
+    //主页面的Handler
+    Handler handler;
 
     //消息类型
     final int MESSAGE_KIND_WEB=1;        //由服务器模式接收到的message类型
@@ -152,9 +155,10 @@ class OverAllData
 
     /*网络信息*/
     StringBuilder network_message=new StringBuilder();          //用来存储所有信息的变量
-    final int NETWORK_MESSAGE_REFRESH_INTERVAL=5000;      //网络信息页面的刷新时间间隔
+    final int NETWORK_MESSAGE_REFRESH_INTERVAL=500;             //网络信息页面的刷新时间间隔
     //记录网络信息
-    void RecordNetworkMessage(String str){
-        network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}
+    void RecordNetworkMessage(String str){network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}
+    //自动翻页按钮状态
+    boolean auto_down_switch_state=true;
     /*网络信息*/
 }

@@ -25,10 +25,10 @@ public class SendMessage extends Thread
             wri.flush();
             wri.close();
             so.close();
-            if(all.setting_ip.equals(all.server_ip))
+            if(all.LINK_MODE==all.LINK_MODE_WEB)
                 all.RecordNetworkMessage("服务器模式，IP："+all.server_ip+"，Port："+all.server_port+"，发送信息："+send_message);
             else
-                all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，收到信息："+send_message);
+                all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，发送信息："+send_message);
         } catch (Exception e) {
             e.printStackTrace();
         }

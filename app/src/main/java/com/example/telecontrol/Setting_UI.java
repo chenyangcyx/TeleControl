@@ -123,6 +123,9 @@ public class Setting_UI extends AppCompatActivity {
                     all.setting_port=all.lan_chip_port;             //更换连接的端口
                     setting_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
                     setting_port.setText("    "+ all.setting_port +"      (局域网模式)");  //更换显示的文本框内容，port
+                    //开启局域网模式消息接收线程
+                    all.thread_lan=new ReceiveMessageFromLAN(all.handler);
+                    all.thread_lan.start();
                 }
             }
         });

@@ -22,8 +22,6 @@ public class Network_details extends AppCompatActivity
     Button button_back,button_clear,button_copy;        //底下的三个按钮
     Switch switch_autodown;     //是否自动翻页
 
-    boolean if_auto_down=true;  //是否自动翻页
-
     OverAllData all=OverAllData.alldata;
 
     @Override
@@ -37,8 +35,9 @@ public class Network_details extends AppCompatActivity
         InitViewUnit();
         //添加控件监听器
         AddUnitActionListener();
-        //拉倒最下
-        text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+        //拉到最下
+        if(all.auto_down_switch_state)
+            text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
         //页面刷新
         RefreshUI();
     }
@@ -52,6 +51,8 @@ public class Network_details extends AppCompatActivity
         button_copy= findViewById(R.id.button_copy);
         text_scroll= findViewById(R.id.network_scroll);
         switch_autodown=findViewById(R.id.switch_autodown);
+        //设置“自动翻页”按钮的状态
+        switch_autodown.setChecked(all.auto_down_switch_state);
     }
 
     //添加控件监听器
@@ -104,8 +105,10 @@ public class Network_details extends AppCompatActivity
         //自动翻页按钮
         switch_autodown.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if_auto_down=isChecked;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!buttonView.isPressed())
+                    return;
+                all.auto_down_switch_state=isChecked;
             }
         });
     }
@@ -118,7 +121,7 @@ public class Network_details extends AppCompatActivity
             @Override
             public void run() {
                 RefreshTextViewer();
-                if(if_auto_down)
+                if(all.auto_down_switch_state)
                     text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
                 han.postDelayed(this,all.NETWORK_MESSAGE_REFRESH_INTERVAL);
             }

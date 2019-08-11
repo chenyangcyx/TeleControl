@@ -7,7 +7,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 3
-        versionName '3.19.08.10.1700'
+        versionName '3.19.08.11'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     android.applicationVariants.all {
