@@ -1,4 +1,7 @@
-package com.example.telecontrol;
+package com.telecontrol.ActivityClass;
+
+import com.telecontrol.R;
+import com.telecontrol.App.OverAllData;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -29,7 +32,7 @@ public class Network_details extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_details);
         //设置setting界面的状态栏
-        Toolbar toolbar = findViewById(R.id.setting_toolbar);
+        Toolbar toolbar = findViewById(R.id.charts_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();

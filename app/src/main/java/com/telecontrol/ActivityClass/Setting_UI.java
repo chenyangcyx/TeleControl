@@ -1,4 +1,8 @@
-package com.example.telecontrol;
+package com.telecontrol.ActivityClass;
+
+import com.telecontrol.R;
+import com.telecontrol.App.OverAllData;
+import com.telecontrol.SocketFunction.ReceiveMessageFromLAN;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +24,7 @@ public class Setting_UI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_ui);
         //设置setting界面的状态栏
-        Toolbar toolbar = findViewById(R.id.setting_toolbar);
+        Toolbar toolbar = findViewById(R.id.charts_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();

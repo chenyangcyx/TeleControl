@@ -1,4 +1,7 @@
-package com.example.telecontrol;
+package com.telecontrol.App;
+
+import com.telecontrol.SocketFunction.ReceiveMessageFromLAN;
+import com.telecontrol.SocketFunction.ReceiveMessageFromWeb;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
@@ -7,16 +10,16 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-class OverAllData
+public class OverAllData
 {
-    static OverAllData alldata=new OverAllData();
+    public static OverAllData alldata=new OverAllData();
 
     /*连接相关*/
-    final String server_ip="47.100.206.8";  //服务器的IP地址
-    final int server_port=6000;             //服务器的端口
-    final String lan_chip_ip="192.168.4.1"; //单片机的IP地址
-    final int lan_chip_port=333;            //单片机的端口
-    final int lan_app_port=5000;            //app在局域网模式下监听的端口
+    public final String server_ip="47.100.206.8";  //服务器的IP地址
+    public final int server_port=6000;             //服务器的端口
+    public final String lan_chip_ip="192.168.4.1"; //单片机的IP地址
+    public final int lan_chip_port=333;            //单片机的端口
+    public final int lan_app_port=5000;            //app在局域网模式下监听的端口
     /*连接相关*/
 
     /*控制命令相关*/
@@ -40,24 +43,24 @@ class OverAllData
     /*控制命令相关*/
 
     /*程序配置*/
-    String setting_ip=server_ip;        //当前设置的ip地址
-    int setting_port=server_port;       //当前设置的端口
-    final int LINK_MODE_WEB=0;     //连接模式：联网模式
-    final int LINK_MODE_LAN=1;     //连接模式：局域网模式
-    int LINK_MODE=LINK_MODE_WEB;     //程序当前的连接模式
+    public String setting_ip=server_ip;        //当前设置的ip地址
+    public int setting_port=server_port;       //当前设置的端口
+    public final int LINK_MODE_WEB=0;     //连接模式：联网模式
+    public final int LINK_MODE_LAN=1;     //连接模式：局域网模式
+    public int LINK_MODE=LINK_MODE_WEB;     //程序当前的连接模式
 
-    final int wendu_min_init=0;          //温度监测的初始化最低值
-    final int wendu_max_init=99;        //温度监测的初始化最高值
-    final int shidu_min_init=0;          //湿度监测的初始化最低值
-    final int shidu_max_init=99;        //湿度监测的初始化最高值
-    final int guangzhao_min_init=0;      //光照监测的初始化最低值
-    final int guangzhao_max_inti=99999;  //光照监测的初始化最高值
-    int wendu_min=wendu_min_init;            //温度监测最低值
-    int wendu_max=wendu_max_init;            //温度监测最高值
-    int shidu_min=shidu_min_init;            //湿度监测最低值
-    int shidu_max=shidu_max_init;            //湿度监测最高值
-    int guangzhao_min=guangzhao_min_init;    //光照控制最低值
-    int guangzhao_max=guangzhao_max_inti;    //光照控制最高值
+    public final int wendu_min_init=0;          //温度监测的初始化最低值
+    public final int wendu_max_init=99;        //温度监测的初始化最高值
+    public final int shidu_min_init=0;          //湿度监测的初始化最低值
+    public final int shidu_max_init=99;        //湿度监测的初始化最高值
+    public final int guangzhao_min_init=0;      //光照监测的初始化最低值
+    public final int guangzhao_max_inti=99999;  //光照监测的初始化最高值
+    public int wendu_min=wendu_min_init;            //温度监测最低值
+    public int wendu_max=wendu_max_init;            //温度监测最高值
+    public int shidu_min=shidu_min_init;            //湿度监测最低值
+    public int shidu_max=shidu_max_init;            //湿度监测最高值
+    public int guangzhao_min=guangzhao_min_init;    //光照控制最低值
+    public int guangzhao_max=guangzhao_max_inti;    //光照控制最高值
 
     private long last_open_gg_time=0;                 //上次开启灌溉按钮的时间
     void RefreshOpenGGTime(){this.last_open_gg_time=System.currentTimeMillis();}     //更新上次开启灌溉按钮的时间
@@ -68,8 +71,7 @@ class OverAllData
     /*存储所有数据的结构*/
     ArrayList<Integer> data_wendu=new ArrayList<>();
     ArrayList<Integer> data_shidu=new ArrayList<>();
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    private ArrayList<Integer> data_gz=new ArrayList<>();
+    ArrayList<Integer> data_gz=new ArrayList<>();
     ArrayList<String> data_time=new ArrayList<>();
     int current_wendu=0;
     int current_shidu=0;
@@ -82,26 +84,28 @@ class OverAllData
     /*存储所有数据的结构*/
 
     //获取数据的网址
-    final String info_web_url="http://47.100.206.8:6500/getinfo.php";
+    public final String info_web_url="http://47.100.206.8:6500/getinfo.php";
     //图表的刷新时间
-    final int ChartRefreshTime=5000;
+    public final int ChartRefreshTime=1000;
+    //从网页接收信息的间隔时间
+    public final int WebRefreshTime=5000;
     //接收消息线程的暂停时间
-    final int ReceiveThreadPauseTime=50;
+    public final int ReceiveThreadPauseTime=50;
     //主页面的Handler
-    Handler handler;
+    public Handler handler;
 
     //消息类型
-    final int MESSAGE_KIND_WEB=1;        //由服务器模式接收到的message类型
-    final int MESSAGE_KIND_LAN=2;        //由局域网模式接收到的message类型
+    public final int MESSAGE_KIND_WEB=1;        //由服务器模式接收到的message类型
+    public final int MESSAGE_KIND_LAN=2;        //由局域网模式接收到的message类型
 
     //服务器模式，接收线程
     ReceiveMessageFromWeb thread_web=null;
     //局域网模式，接收线程
-    ReceiveMessageFromLAN thread_lan=null;
+    public ReceiveMessageFromLAN thread_lan=null;
 
     //获取时间
     @SuppressLint("SimpleDateFormat")
-    private SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+    public SimpleDateFormat df=new SimpleDateFormat("mm:ss");
     private String GetCurrentTime()
     {
         return df.format(System.currentTimeMillis());
@@ -154,11 +158,11 @@ class OverAllData
     }
 
     /*网络信息*/
-    StringBuilder network_message=new StringBuilder();          //用来存储所有信息的变量
-    final int NETWORK_MESSAGE_REFRESH_INTERVAL=500;             //网络信息页面的刷新时间间隔
+    public StringBuilder network_message=new StringBuilder();          //用来存储所有信息的变量
+    public final int NETWORK_MESSAGE_REFRESH_INTERVAL=500;             //网络信息页面的刷新时间间隔
     //记录网络信息
-    void RecordNetworkMessage(String str){network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}
+    public void RecordNetworkMessage(String str){network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}
     //自动翻页按钮状态
-    boolean auto_down_switch_state=true;
+    public boolean auto_down_switch_state=true;
     /*网络信息*/
 }

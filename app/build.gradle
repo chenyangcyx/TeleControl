@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.example.telecontrol"
+        applicationId 'com.telecontrol'
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 3
-        versionName '3.19.08.11'
+        versionName '3.19.08.13'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     android.applicationVariants.all {

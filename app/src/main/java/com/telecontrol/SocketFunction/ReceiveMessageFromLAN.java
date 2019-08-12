@@ -1,4 +1,6 @@
-package com.example.telecontrol;
+package com.telecontrol.SocketFunction;
+
+import com.telecontrol.App.OverAllData;
 
 import android.os.Handler;
 import android.os.Message;
@@ -13,33 +15,33 @@ public class ReceiveMessageFromLAN extends Thread
 
     private Handler handler;
 
-    ReceiveMessageFromLAN(Handler handler)
+    public ReceiveMessageFromLAN(Handler handler)
     {
         this.handler=handler;
     }
 
     public void run() {
         try {
-            ServerSocket server = new ServerSocket(all.lan_app_port);
+            ServerSocket ser=new ServerSocket(all.lan_app_port);
             //noinspection InfiniteLoopStatement
             while (true)
             {
-                sleep(all.ReceiveThreadPauseTime);
-                Socket so= server.accept();
                 if(all.LINK_MODE!=all.LINK_MODE_LAN)
                     continue;
+                Socket so=ser.accept();
                 DataInputStream in = new DataInputStream(so.getInputStream());
                 byte[] receive=new byte[128];
                 //noinspection ResultOfMethodCallIgnored
                 in.read(receive);
                 in.close();
+                so.close();
                 Message message=new Message();
                 message.what=all.MESSAGE_KIND_LAN;
                 message.obj=new String(receive);
                 handler.sendMessage(message);
                 all.RecordNetworkMessage("局域网模式，IP："+all.lan_chip_ip+"，Port："+all.lan_chip_port+"，收到信息："+ Arrays.toString(receive));
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

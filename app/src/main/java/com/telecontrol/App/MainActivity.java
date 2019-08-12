@@ -1,8 +1,12 @@
-package com.example.telecontrol;
+package com.telecontrol.App;
+
+import com.telecontrol.R;
+import com.telecontrol.ActivityClass.Network_details;
+import com.telecontrol.ActivityClass.Setting_UI;
+import com.telecontrol.SocketFunction.ReceiveMessageFromWeb;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity
         //开启服务器模式消息接收线程
         all.thread_web=new ReceiveMessageFromWeb(han);
         all.thread_web.start();
+        //开始自动刷新图表
+        MainChartAutoRefresh();
     }
 
     //初始化控件
@@ -74,19 +80,7 @@ public class MainActivity extends AppCompatActivity
         ui_chart.getSettings().setDomStorageEnabled(true);
         ui_chart.setWebViewClient(new WebViewClient() {
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-            }
-
-            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不另跳浏览器
-                // 在2.3上面不加这句话，可以加载出页面，在4.0上面必须要加入，不然出现白屏
                 if (url.startsWith("http://") || url.startsWith("https://")) {
                     view.loadUrl(url);
                     ui_chart.stopLoading();
@@ -94,14 +88,8 @@ public class MainActivity extends AppCompatActivity
                 }
                 return false;
             }
-
-            @Override
-            public void onReceivedError(WebView view, int errorCode,
-                                        String description, String failingUrl) {
-                super.onReceivedError(view, errorCode, description, failingUrl);
-            }
         });
-        ui_chart.loadUrl("file:///android_asset/charts.html");
+        ui_chart.loadUrl("file:///android_asset/main_ui_chart.html");
     }
 
     //添加控件监听器
@@ -111,7 +99,7 @@ public class MainActivity extends AppCompatActivity
         main_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,Setting_UI.class);
+                Intent intent=new Intent(MainActivity.this, Setting_UI.class);
                 startActivity(intent);
             }
         });
@@ -119,7 +107,7 @@ public class MainActivity extends AppCompatActivity
         main_network.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,Network_details.class);
+                Intent intent=new Intent(MainActivity.this, Network_details.class);
                 startActivity(intent);
             }
         });
@@ -241,8 +229,6 @@ public class MainActivity extends AppCompatActivity
                         ui_wendu.setText("" + all.current_wendu + " ℃");
                         ui_shidu.setText("" + all.current_shidu + " %");
                         ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
-                        //更新图表
-                        RefreshChart();
                         //监控
                         MonitorValue();
                         break;
@@ -256,8 +242,6 @@ public class MainActivity extends AppCompatActivity
                         ui_wendu.setText("" + all.current_wendu + " ℃");
                         ui_shidu.setText("" + all.current_shidu + " %");
                         ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
-                        //更新图表
-                        RefreshChart();
                         //监控
                         MonitorValue();
                         break;
@@ -317,6 +301,19 @@ public class MainActivity extends AppCompatActivity
         }
         ui_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
                 ","+all.CHART_MIN_WENDU+","+all.CHART_MAX_WENDU+","+all.CHART_MIN_SHIDU+","+all.CHART_MAX_SHIDU+")");
+    }
+
+    //图表的自动刷新线程
+    public void MainChartAutoRefresh()
+    {
+        final Handler han=new Handler();
+        han.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                RefreshChart();
+                han.postDelayed(this,all.ChartRefreshTime);
+            }
+        }, 0);
     }
 
     //数值监控

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Setting_UI">
+    tools:context="com.telecontrol.ActivityClass.Setting_UI">
 
     <Button
         android:id="@+id/setting_enter"
@@ -201,7 +201,7 @@
         tools:ignore="MissingConstraints">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/setting_toolbar"
+            android:id="@+id/charts_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"

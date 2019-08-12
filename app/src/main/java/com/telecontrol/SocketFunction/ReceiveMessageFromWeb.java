@@ -1,4 +1,6 @@
-package com.example.telecontrol;
+package com.telecontrol.SocketFunction;
+
+import com.telecontrol.App.OverAllData;
 
 import android.os.Handler;
 import android.os.Message;
@@ -14,7 +16,7 @@ public class ReceiveMessageFromWeb extends Thread
 
     private Handler handler;
 
-    ReceiveMessageFromWeb(Handler handler)
+    public ReceiveMessageFromWeb(Handler handler)
     {
         this.handler=handler;
     }
@@ -52,7 +54,7 @@ public class ReceiveMessageFromWeb extends Thread
                 message.obj = GetMessageFromWeb();
                 handler.sendMessage(message);
                 all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);
-                sleep(all.ChartRefreshTime);
+                sleep(all.WebRefreshTime);
             }
         }catch (Exception e) {
             e.printStackTrace();

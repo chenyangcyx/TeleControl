@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.telecontrol">
+    package="com.telecontrol">
     <uses-permission
         android:name="android.permission.INTERNET">
     </uses-permission>
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
+            android:name="com.telecontrol.App.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,11 +25,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Setting_UI"
+            android:name="com.telecontrol.ActivityClass.Setting_UI"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".Network_details"
+            android:name="com.telecontrol.ActivityClass.Network_details"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.telecontrol.ActivityClass.Chart_details"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

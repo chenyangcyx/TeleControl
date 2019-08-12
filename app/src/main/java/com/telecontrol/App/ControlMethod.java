@@ -1,4 +1,6 @@
-package com.example.telecontrol;
+package com.telecontrol.App;
+
+import com.telecontrol.SocketFunction.SendMessage;
 
 class ControlMethod
 {

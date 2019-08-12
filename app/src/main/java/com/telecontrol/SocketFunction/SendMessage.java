@@ -1,6 +1,8 @@
-package com.example.telecontrol;
+package com.telecontrol.SocketFunction;
 
-import java.io.*;
+import com.telecontrol.App.OverAllData;
+
+import java.io.PrintStream;
 import java.net.Socket;
 
 public class SendMessage extends Thread
@@ -9,7 +11,7 @@ public class SendMessage extends Thread
 
     private String send_message;
 
-    SendMessage(String str)
+    public SendMessage(String str)
     {
         send_message = null;
         this.send_message=str;
