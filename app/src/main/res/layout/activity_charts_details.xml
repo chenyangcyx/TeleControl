@@ -8,14 +8,14 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/appBarLayout"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_blue_dark"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/charts_toolbar"
+            android:id="@+id/chart_details_ui_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
@@ -23,91 +23,91 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <Button
-            android:id="@+id/chart_ui_back"
-            android:layout_width="wrap_content"
+            android:id="@+id/chart_details_ui_back"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:text="返回"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/charts_toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/chart_details_ui_toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.6" />
     </android.support.constraint.ConstraintLayout>
 
     <Button
-        android:id="@+id/chart_ui_wendu"
+        android:id="@+id/chart_details_ui_button_wendu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="温度"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chart_ui_shidu"
+        app:layout_constraintEnd_toStartOf="@+id/chart_details_ui_button_shidu"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.112" />
 
     <Button
-        android:id="@+id/chart_ui_shidu"
+        android:id="@+id/chart_details_ui_button_shidu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="湿度"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chart_ui_gz"
+        app:layout_constraintEnd_toStartOf="@+id/chart_details_ui_button_gz"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.112" />
 
     <Button
-        android:id="@+id/chart_ui_gz"
+        android:id="@+id/chart_details_ui_button_gz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:text="光照"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/chart_details_ui_button_tongji"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.112" />
 
     <WebView
-        android:id="@+id/charts_web1"
+        android:id="@+id/chart_details_ui_web1"
         android:layout_width="match_parent"
-        android:layout_height="275dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/charts_web2"
+        android:layout_height="247dp"
+        android:layout_marginTop="32dp"
+        android:layerType="software"
+        android:scrollbars="none"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/chart_details_ui_web2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart_ui_wendu"
+        app:layout_constraintTop_toBottomOf="@+id/chart_details_ui_button_wendu"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <WebView
-        android:id="@+id/charts_web2"
+        android:id="@+id/chart_details_ui_web2"
         android:layout_width="match_parent"
-        android:layout_height="275dp"
+        android:layout_height="247dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charts_web1"
+        app:layout_constraintTop_toBottomOf="@+id/chart_details_ui_web1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.98" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/chart_details_ui_button_tongji"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:text="统计"
@@ -119,4 +119,85 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.112" />
 
+    <View
+        android:id="@+id/chart_details_ui_line"
+        android:layout_width="match_parent"
+        android:layout_height="4px"
+        android:layout_marginTop="8dp"
+        android:background="#5E000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/chart_details_ui_web2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chart_details_ui_web2"
+        app:layout_constraintVertical_bias="0.55" />
+
+    <ScrollView
+        android:id="@+id/chart_details_ui_scroll"
+        android:layout_width="290dp"
+        android:layout_height="410dp"
+        android:layout_marginBottom="8dp"
+        android:fadeScrollbars="false"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/chart_details_ui_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/chart_details_ui_button_refresh"
+        android:layout_width="90sp"
+        android:layout_height="45sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="6dp"
+        android:text="刷新"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.954" />
+
+    <Button
+        android:id="@+id/chart_details_ui__button_copy"
+        android:layout_width="90sp"
+        android:layout_height="45sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="6dp"
+        android:text="复制"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/chart_details_ui_button_refresh"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.953" />
 </android.support.constraint.ConstraintLayout>

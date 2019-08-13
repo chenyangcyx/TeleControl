@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class Network_details extends AppCompatActivity
 {
     TextView text_details;      //显示状态信息的框
-    ScrollView text_scroll;     //下拉框
+    ScrollView scroll;     //下拉框
     Button button_back,button_clear,button_copy;        //底下的三个按钮
     Switch switch_autodown;     //是否自动翻页
 
@@ -32,7 +32,7 @@ public class Network_details extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_network_details);
         //设置setting界面的状态栏
-        Toolbar toolbar = findViewById(R.id.charts_toolbar);
+        Toolbar toolbar = findViewById(R.id.network_details_ui_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();
@@ -40,7 +40,7 @@ public class Network_details extends AppCompatActivity
         AddUnitActionListener();
         //拉到最下
         if(all.auto_down_switch_state)
-            text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+            scroll.fullScroll(ScrollView.FOCUS_DOWN);
         //页面刷新
         RefreshUI();
     }
@@ -48,12 +48,12 @@ public class Network_details extends AppCompatActivity
     //初始化控件
     public void InitViewUnit()
     {
-        text_details= findViewById(R.id.details_text);
-        button_back= findViewById(R.id.button_back);
-        button_clear= findViewById(R.id.button_clear);
-        button_copy= findViewById(R.id.button_copy);
-        text_scroll= findViewById(R.id.network_scroll);
-        switch_autodown=findViewById(R.id.switch_autodown);
+        text_details= findViewById(R.id.network_details_ui_text);
+        button_back= findViewById(R.id.network_details_ui_button_back);
+        button_clear= findViewById(R.id.network_details_ui_button_clear);
+        button_copy= findViewById(R.id.network_details_ui_button_copy);
+        scroll = findViewById(R.id.network_details_ui_scroll);
+        switch_autodown=findViewById(R.id.network_details_ui_switch_autodown);
         //设置“自动翻页”按钮的状态
         switch_autodown.setChecked(all.auto_down_switch_state);
     }
@@ -125,7 +125,7 @@ public class Network_details extends AppCompatActivity
             public void run() {
                 RefreshTextViewer();
                 if(all.auto_down_switch_state)
-                    text_scroll.fullScroll(ScrollView.FOCUS_DOWN);
+                    scroll.fullScroll(ScrollView.FOCUS_DOWN);
                 han.postDelayed(this,all.NETWORK_MESSAGE_REFRESH_INTERVAL);
             }
         }, 0);

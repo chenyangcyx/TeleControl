@@ -1,0 +1,116 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chart</title>
+    <!-- 引入图表绘制的js文件 -->
+    <script src="echarts.js"></script>
+	<script src="macarons.js"></script>
+	<style>
+        html,body
+        {
+        height: 96%;
+        width: 98%;
+        text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 准备一个Dom -->
+    <div id="main"
+        style="height: 100%; width: 100%; text-align: center;"></div>
+    <!-- 使用js绘制chart -->
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化chart实例
+        var colors = ['#5793f3', '#d14a61', '#675bba'];
+        var myChart = echarts.init(document.getElementById('main'),'macarons');
+		
+		//构造表格的函数
+		function createChart(data_name,value_range_min,value_range_max,data_x_array,data_value)
+		{
+            var y_name;
+            if(data_name=="温度")
+                y_name=" ℃";
+            else if(data_name=="湿度")
+                y_name=" %";
+            else if(data_name=="光照")
+                y_name=" lx";
+            
+            option = {
+                color: colors,
+
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                legend: {
+                    orient: 'horizontal',
+                    x:'center',
+                    y:'bottom',
+                    data:['柱状图','折线图']
+                },
+                grid: {
+                    x:40,         //距离左边的距离
+                    x2:40,        //距离右边的距离
+                    y:28,         //距离上边的距离
+                    y2:44         //距离下边的距离
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: true,
+                        data: data_x_array
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        name: '柱状图',
+                        position: 'left',
+                        offset: 0,
+                        min: value_range_min,
+                        max: value_range_max,
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[1]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}'+y_name
+                        }
+                    },
+                    {
+                        type: 'value',
+                        name: '折线图',
+                        position: 'right',
+                        min: value_range_min,
+                        max: value_range_max,
+                        axisLine: {
+                            lineStyle: {
+                                color: colors[2]
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}'+y_name
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name:'柱状图',
+                        type:'bar',
+                        data:data_value
+                    },
+                    {
+                        name:'折线图',
+                        type:'line',
+                        data:data_value
+                    }
+                ]
+            };
+			myChart.setOption(option);
+		}
+    </script>
+</body>
+</html>

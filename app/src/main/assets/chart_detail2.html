@@ -1,0 +1,133 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chart</title>
+    <!-- 引入图表绘制的js文件 -->
+    <script src="echarts.js"></script>
+	<script src="macarons.js"></script>
+	<style>
+        html,body
+        {
+        height: 96%;
+        width: 98%;
+        text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 准备一个Dom -->
+    <div id="main"
+        style="height: 100%; width: 100%; text-align: bottom;"></div>
+    <!-- 使用js绘制chart -->
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化chart实例
+        var colors = ['#5793f3', '#d14a61', '#675bba'];
+        var myChart = echarts.init(document.getElementById('main'),'macarons');
+		
+		//构造表格的函数
+		function createChart(data_name,value_range_min,value_range_max,data_prex_array,data_curx_array,data_prevalue,data_curvalue)
+		{
+            var y_name;
+            if(data_name=="温度")
+                y_name=" ℃";
+            else if(data_name=="湿度")
+                y_name=" %";
+            else if(data_name=="光照")
+                y_name=" lx";
+            
+            option = {
+                color: colors,
+
+                tooltip: {
+                    trigger: 'none',
+                    axisPointer: {
+                        type: 'cross'
+                    }
+                },
+                legend: {
+                    orient: 'horizontal',
+                    x:'center',
+                    y:'bottom',
+                    data:['上一周期', '当前周期']
+                },
+                grid: {
+                    x:40,         //距离左边的距离
+                    x2:10,        //距离右边的距离
+                    y:20,         //距离上边的距离
+                    y2:44         //距离下边的距离
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[1]
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return data_name+'  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data + y_name : '');
+                                }
+                            }
+                        },
+                        data: data_prex_array
+                    },
+                    {
+                        type: 'category',
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[0]
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return data_name+'  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data + y_name : '');
+                                }
+                            }
+                        },
+                        data: data_curx_array
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value',
+                        min: value_range_min,
+                        max: value_range_max,
+                        axisLabel: {
+                            formatter: '{value}'+y_name
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        name:'上一周期',
+                        type:'line',
+                        xAxisIndex: 1,
+                        smooth: true,
+                        data: data_prevalue
+                    },
+                    {
+                        name:'当前周期',
+                        type:'line',
+                        smooth: true,
+                        data: data_curvalue
+                    }
+                ]
+            };
+			myChart.setOption(option);
+		}
+    </script>
+</body>
+</html>

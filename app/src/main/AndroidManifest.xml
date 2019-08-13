@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.telecontrol">
-    <uses-permission
-        android:name="android.permission.INTERNET">
-    </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -20,20 +18,22 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.telecontrol.ActivityClass.Setting_UI"
+            android:label="设置"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name="com.telecontrol.ActivityClass.Network_details"
+            android:label="网络信息"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name="com.telecontrol.ActivityClass.Chart_details"
+            android:label="详细信息"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

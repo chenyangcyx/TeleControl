@@ -1,5 +1,6 @@
 package com.telecontrol.App;
 
+import com.telecontrol.ActivityClass.Chart_details;
 import com.telecontrol.R;
 import com.telecontrol.ActivityClass.Network_details;
 import com.telecontrol.ActivityClass.Setting_UI;
@@ -23,10 +24,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 {
-    Button main_setting,main_network,main_details;
-    EditText ui_wendu,ui_shidu,ui_guangzhaoqiangdu;
+    Button button_setting, button_network, button_details;
+    EditText text_wendu, text_shidu, text_gzqd;
     Switch sw_pqs,sw_zgl,sw_gg,sw_bgd;
-    WebView ui_chart;
+    WebView web_chart;
     ControlMethod con=new ControlMethod();
     OverAllData all=OverAllData.alldata;
     Handler han=all.handler;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //设置main界面的状态栏
-        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        Toolbar toolbar = findViewById(R.id.main_ui_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();
@@ -57,46 +58,43 @@ public class MainActivity extends AppCompatActivity
     private void InitViewUnit()
     {
         //获取button控件
-        main_setting= findViewById(R.id.main_setting);
-        main_network= findViewById(R.id.main_network);
-        main_details= findViewById(R.id.main_details);
+        button_setting = findViewById(R.id.main_ui_setting);
+        button_network = findViewById(R.id.main_ui_button_network_info);
+        button_details = findViewById(R.id.main_ui_chart_details);
         //获取三个文本框控件
-        ui_wendu= findViewById(R.id.text_wendu);
-        ui_shidu= findViewById(R.id.text_shidu);
-        ui_guangzhaoqiangdu= findViewById(R.id.text_gzqd);
+        text_wendu = findViewById(R.id.main_ui_text_wendu);
+        text_shidu = findViewById(R.id.main_ui_text_shidu);
+        text_gzqd = findViewById(R.id.main_ui_text_gzqd);
         //获取四个开关控件
-        sw_pqs = findViewById(R.id.switch_pqs);
-        sw_zgl= findViewById(R.id.switch_zgl);
-        sw_gg= findViewById(R.id.switch_gg);
-        sw_bgd= findViewById(R.id.switch_bgd);
+        sw_pqs = findViewById(R.id.main_ui_switch_pqs);
+        sw_zgl= findViewById(R.id.main_ui_switch_zgl);
+        sw_gg= findViewById(R.id.main_ui_switch_gg);
+        sw_bgd= findViewById(R.id.main_ui_switch_bgd);
         //初始化WebView
-        ui_chart= findViewById(R.id.main_chart);
-        ui_chart.clearCache(true);
-        ui_chart.clearHistory();
-        ui_chart.requestFocus();
-        ui_chart.getSettings().setJavaScriptEnabled(true);
-        ui_chart.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        ui_chart.getSettings().setAppCacheEnabled(false);
-        ui_chart.getSettings().setDomStorageEnabled(true);
-        ui_chart.setWebViewClient(new WebViewClient() {
+        web_chart = findViewById(R.id.main_ui_chart);
+        web_chart.getSettings().setJavaScriptEnabled(true);
+        web_chart.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        web_chart.getSettings().setAppCacheEnabled(false);
+        web_chart.getSettings().setDomStorageEnabled(true);
+        web_chart.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("http://") || url.startsWith("https://")) {
                     view.loadUrl(url);
-                    ui_chart.stopLoading();
+                    web_chart.stopLoading();
                     return true;
                 }
                 return false;
             }
         });
-        ui_chart.loadUrl("file:///android_asset/main_ui_chart.html");
+        web_chart.loadUrl("file:///android_asset/main_ui_chart.html");
     }
 
     //添加控件监听器
     private void AddUnitActionListener()
     {
         //主界面setting按钮绑定事件
-        main_setting.setOnClickListener(new View.OnClickListener() {
+        button_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, Setting_UI.class);
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //网络信息按钮
-        main_network.setOnClickListener(new View.OnClickListener() {
+        button_network.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, Network_details.class);
@@ -112,10 +110,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
         //详细信息按钮
-        main_details.setOnClickListener(new View.OnClickListener() {
+        button_details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent=new Intent(MainActivity.this, Chart_details.class);
+                startActivity(intent);
             }
         });
         //排气扇开关监听
@@ -226,9 +225,9 @@ public class MainActivity extends AppCompatActivity
                         //消息解析
                         all.EncodeReceiveMessageFromWeb(msg.obj.toString());
                         //设置当前数值
-                        ui_wendu.setText("" + all.current_wendu + " ℃");
-                        ui_shidu.setText("" + all.current_shidu + " %");
-                        ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
+                        text_wendu.setText("" + all.current_wendu + " ℃");
+                        text_shidu.setText("" + all.current_shidu + " %");
+                        text_gzqd.setText("" + all.current_gz+" lx");
                         //监控
                         MonitorValue();
                         break;
@@ -239,9 +238,9 @@ public class MainActivity extends AppCompatActivity
                         //消息解析
                         all.EncodeReceiveMessageFromLAN(msg.obj.toString());
                         //设置当前数值
-                        ui_wendu.setText("" + all.current_wendu + " ℃");
-                        ui_shidu.setText("" + all.current_shidu + " %");
-                        ui_guangzhaoqiangdu.setText("" + all.current_gz+" lx");
+                        text_wendu.setText("" + all.current_wendu + " ℃");
+                        text_shidu.setText("" + all.current_shidu + " %");
+                        text_gzqd.setText("" + all.current_gz+" lx");
                         //监控
                         MonitorValue();
                         break;
@@ -259,7 +258,7 @@ public class MainActivity extends AppCompatActivity
         int length=all.data_time.size();
         if(length==0)
         {
-            ui_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
+            web_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
                     ","+all.CHART_MIN_WENDU+","+all.CHART_MAX_WENDU+","+all.CHART_MIN_SHIDU+","+all.CHART_MAX_SHIDU+")");
             return;
         }
@@ -299,7 +298,7 @@ public class MainActivity extends AppCompatActivity
             shidu_array.append("]");
             time_array.append("]");
         }
-        ui_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
+        web_chart.loadUrl("javascript:createChart("+time_array+","+wendu_array+","+shidu_array+
                 ","+all.CHART_MIN_WENDU+","+all.CHART_MAX_WENDU+","+all.CHART_MIN_SHIDU+","+all.CHART_MAX_SHIDU+")");
     }
 

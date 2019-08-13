@@ -1,25 +1,26 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ECharts</title>
-    <!-- 引入 echarts.js -->
+    <title>Chart</title>
+    <!-- 引入图表绘制的js文件 -->
     <script src="echarts.js"></script>
 	<script src="macarons.js"></script>
 	<style>
         html,body
         {
-        height: 98%;
+        height: 97%;
         width: 98%;
         text-align:center;
         }
     </style>
 </head>
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <!-- 准备一个Dom -->
     <div id="main"
         style="height: 100%; width: 100%; text-align: center;"></div>
+	<!-- 使用js绘制chart -->
     <script type="text/javascript">
-		// 基于准备好的dom，初始化echarts实例
+		// 基于准备好的dom，初始化chart实例
         var myChart = echarts.init(document.getElementById('main'),'macarons');
 		
 		//构造表格的函数
@@ -33,14 +34,14 @@
                     orient: 'horizontal',
                     x:'center',
                     y:'bottom',
-                    padding:[0,0,10,0],
+                    padding:[0,0,2,0],
                     data:['温度','湿度']
                 },
                 grid: {
                     x:40,         //距离左边的距离
                     x2:40,        //距离右边的距离
-                    y:40,         //距离上边的距离
-                    y2:55         //距离下边的距离
+                    y:37,         //距离上边的距离
+                    y2:44         //距离下边的距离
                 },
                 xAxis:  {
                     type: 'category',

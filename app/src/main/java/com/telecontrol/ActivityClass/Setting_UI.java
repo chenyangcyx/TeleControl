@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 public class Setting_UI extends AppCompatActivity {
 
-    Button setting_enter,setting_reset,setting_changemode;
-    EditText setting_ip,setting_port,setting_wendumin,setting_wendumax,setting_shidumin,setting_shidumax,setting_gzmin,setting_gzmax;
+    Button button_enter, button_reset, button_changemode;
+    EditText text_ip, text_port, text_wendumin, text_wendumax, text_shidumin, text_shidumax, text_gzmin, text_gzmax;
     OverAllData all=OverAllData.alldata;
 
     @Override
@@ -24,7 +24,7 @@ public class Setting_UI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_ui);
         //设置setting界面的状态栏
-        Toolbar toolbar = findViewById(R.id.charts_toolbar);
+        Toolbar toolbar = findViewById(R.id.network_details_ui_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();
@@ -36,38 +36,38 @@ public class Setting_UI extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void InitViewUnit()
     {
-        setting_reset= findViewById(R.id.setting_reset);
-        setting_enter= findViewById(R.id.setting_enter);
-        setting_changemode= findViewById(R.id.setting_changemode);
-        setting_ip= findViewById(R.id.setting_ip);
-        setting_port= findViewById(R.id.setting_port);
-        setting_wendumin= findViewById(R.id.setting_wendumin);
-        setting_wendumax= findViewById(R.id.setting_wendumax);
-        setting_shidumin= findViewById(R.id.setting_shidumin);
-        setting_shidumax= findViewById(R.id.setting_shidumax);
-        setting_gzmin= findViewById(R.id.setting_guangzhaomin);
-        setting_gzmax= findViewById(R.id.setting_guangzhaomax);
-        setting_wendumin.setText(Integer.toString(all.wendu_min));
-        setting_wendumax.setText(Integer.toString(all.wendu_max));
-        setting_shidumin.setText(Integer.toString(all.shidu_min));
-        setting_shidumax.setText(Integer.toString(all.shidu_max));
-        setting_gzmin.setText(Integer.toString(all.guangzhao_min));
-        setting_gzmax.setText(Integer.toString(all.guangzhao_max));
+        button_reset = findViewById(R.id.setting_ui_button_reset);
+        button_enter = findViewById(R.id.setting_ui_button_enter);
+        button_changemode = findViewById(R.id.setting_ui_button_changemode);
+        text_ip = findViewById(R.id.setting_ui_text_ip);
+        text_port = findViewById(R.id.setting_ui_text_port);
+        text_wendumin = findViewById(R.id.setting_ui_text_wendumin);
+        text_wendumax = findViewById(R.id.setting_ui_text_wendumax);
+        text_shidumin = findViewById(R.id.setting_ui_text_shidumin);
+        text_shidumax = findViewById(R.id.setting_ui_text_shidumax);
+        text_gzmin = findViewById(R.id.setting_ui_text_guangzhaomin);
+        text_gzmax = findViewById(R.id.setting_ui_text_guangzhaomax);
+        text_wendumin.setText(Integer.toString(all.wendu_min));
+        text_wendumax.setText(Integer.toString(all.wendu_max));
+        text_shidumin.setText(Integer.toString(all.shidu_min));
+        text_shidumax.setText(Integer.toString(all.shidu_max));
+        text_gzmin.setText(Integer.toString(all.guangzhao_min));
+        text_gzmax.setText(Integer.toString(all.guangzhao_max));
         //初始化服务器IP和端口的输入框
-        setting_ip.setText("    "+all.setting_ip);
+        text_ip.setText("    "+all.setting_ip);
         if(all.LINK_MODE==all.LINK_MODE_WEB)
-            setting_port.setText("    "+ all.setting_port +"    (服务器模式)");
+            text_port.setText("    "+ all.setting_port +"    (服务器模式)");
         else
-            setting_port.setText("    "+ all.setting_port +"      (局域网模式)");
-        setting_ip.setFocusable(false);
-        setting_port.setFocusable(false);
+            text_port.setText("    "+ all.setting_port +"      (局域网模式)");
+        text_ip.setFocusable(false);
+        text_port.setFocusable(false);
     }
 
     //添加控件监听器
     private void AddUnitActionListener()
     {
         //重置按钮
-        setting_reset.setOnClickListener(new View.OnClickListener() {
+        button_reset.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v)
@@ -78,25 +78,25 @@ public class Setting_UI extends AppCompatActivity {
                 all.shidu_max=all.shidu_max_init;            //湿度监测最高值
                 all.guangzhao_min=all.guangzhao_min_init;    //光照控制最低值
                 all.guangzhao_max=all.guangzhao_max_inti;    //光照控制最高值
-                setting_wendumin.setText(Integer.toString(all.wendu_min));        //温度低
-                setting_wendumax.setText(Integer.toString(all.wendu_max));        //温度高
-                setting_shidumin.setText(Integer.toString(all.shidu_min));        //湿度低
-                setting_shidumax.setText(Integer.toString(all.shidu_max));        //湿度高
-                setting_gzmin.setText(Integer.toString(all.guangzhao_min));       //光照低
-                setting_gzmax.setText(Integer.toString(all.guangzhao_max));       //光照高
+                text_wendumin.setText(Integer.toString(all.wendu_min));        //温度低
+                text_wendumax.setText(Integer.toString(all.wendu_max));        //温度高
+                text_shidumin.setText(Integer.toString(all.shidu_min));        //湿度低
+                text_shidumax.setText(Integer.toString(all.shidu_max));        //湿度高
+                text_gzmin.setText(Integer.toString(all.guangzhao_min));       //光照低
+                text_gzmax.setText(Integer.toString(all.guangzhao_max));       //光照高
             }
         });
 
         //确认按钮
-        setting_enter.setOnClickListener(new View.OnClickListener() {
+        button_enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                all.wendu_min=setting_wendumin.getText().toString().equals("")?0:Integer.parseInt(setting_wendumin.getText().toString());
-                all.wendu_max=setting_wendumax.getText().toString().equals("")?0:Integer.parseInt(setting_wendumax.getText().toString());
-                all.shidu_min=setting_shidumin.getText().toString().equals("")?0:Integer.parseInt(setting_shidumin.getText().toString());
-                all.shidu_max=setting_shidumax.getText().toString().equals("")?0:Integer.parseInt(setting_shidumax.getText().toString());
-                all.guangzhao_min=setting_gzmin.getText().toString().equals("")?0:Integer.parseInt(setting_gzmin.getText().toString());
-                all.guangzhao_max=setting_gzmax.getText().toString().equals("")?0:Integer.parseInt(setting_gzmax.getText().toString());
+                all.wendu_min= text_wendumin.getText().toString().equals("")?0:Integer.parseInt(text_wendumin.getText().toString());
+                all.wendu_max= text_wendumax.getText().toString().equals("")?0:Integer.parseInt(text_wendumax.getText().toString());
+                all.shidu_min= text_shidumin.getText().toString().equals("")?0:Integer.parseInt(text_shidumin.getText().toString());
+                all.shidu_max= text_shidumax.getText().toString().equals("")?0:Integer.parseInt(text_shidumax.getText().toString());
+                all.guangzhao_min= text_gzmin.getText().toString().equals("")?0:Integer.parseInt(text_gzmin.getText().toString());
+                all.guangzhao_max= text_gzmax.getText().toString().equals("")?0:Integer.parseInt(text_gzmax.getText().toString());
                 if(!CheckScopen().equals("OK"))
                 {
                 ShowToastMessage(CheckScopen());
@@ -107,7 +107,7 @@ public class Setting_UI extends AppCompatActivity {
         });
 
         //切换模式按钮
-        setting_changemode.setOnClickListener(new View.OnClickListener() {
+        button_changemode.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
@@ -117,16 +117,16 @@ public class Setting_UI extends AppCompatActivity {
                     ShowToastMessage("切换到服务器模式");       //显示提示消息
                     all.setting_ip=all.server_ip;                 //更换连接的ip
                     all.setting_port=all.server_port;             //更换连接的端口
-                    setting_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    setting_port.setText("    "+ all.setting_port +"    (服务器模式)");  //更换显示的文本框内容，port
+                    text_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
+                    text_port.setText("    "+ all.setting_port +"    (服务器模式)");  //更换显示的文本框内容，port
                 }
                 else                        //局域网模式
                 {
                     ShowToastMessage("切换到局域网模式");       //显示提示消息
                     all.setting_ip=all.lan_chip_ip;                 //更换连接的ip
                     all.setting_port=all.lan_chip_port;             //更换连接的端口
-                    setting_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    setting_port.setText("    "+ all.setting_port +"      (局域网模式)");  //更换显示的文本框内容，port
+                    text_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
+                    text_port.setText("    "+ all.setting_port +"      (局域网模式)");  //更换显示的文本框内容，port
                     //开启局域网模式消息接收线程
                     all.thread_lan=new ReceiveMessageFromLAN(all.handler);
                     all.thread_lan.start();

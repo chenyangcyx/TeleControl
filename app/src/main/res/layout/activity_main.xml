@@ -16,14 +16,14 @@
         tools:ignore="MissingConstraints">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/main_toolbar"
+            android:id="@+id/main_ui_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         <Button
-            android:id="@+id/main_setting"
+            android:id="@+id/main_ui_setting"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,14 +33,14 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/main_toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/main_ui_toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.6" />
 
     </android.support.constraint.ConstraintLayout>
 
     <Switch
-        android:id="@+id/switch_pqs"
+        android:id="@+id/main_ui_switch_pqs"
         android:layout_width="116dp"
         android:layout_height="35dp"
         android:text="排气扇"
@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.33" />
 
     <Switch
-        android:id="@+id/switch_zgl"
+        android:id="@+id/main_ui_switch_zgl"
         android:layout_width="116dp"
         android:layout_height="35dp"
         android:text="遮光帘"
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.33" />
 
     <Switch
-        android:id="@+id/switch_gg"
+        android:id="@+id/main_ui_switch_gg"
         android:layout_width="116dp"
         android:layout_height="35dp"
         android:text="灌溉"
@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.422" />
 
     <Switch
-        android:id="@+id/switch_bgd"
+        android:id="@+id/main_ui_switch_bgd"
         android:layout_width="116dp"
         android:layout_height="35dp"
         android:text="补光灯"
@@ -88,7 +88,7 @@
         app:layout_constraintVertical_bias="0.422" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/main_ui_textView1"
         android:layout_width="82dp"
         android:layout_height="33dp"
         android:text="温度："
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="0.137" />
 
     <EditText
-        android:id="@+id/text_wendu"
+        android:id="@+id/main_ui_text_wendu"
         android:layout_width="70dp"
         android:layout_height="47dp"
         android:editable="false"
@@ -121,7 +121,7 @@
         app:layout_constraintVertical_bias="0.131" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/main_ui_textView2"
         android:layout_width="82dp"
         android:layout_height="33dp"
         android:text="湿度："
@@ -134,7 +134,7 @@
         app:layout_constraintVertical_bias="0.137" />
 
     <EditText
-        android:id="@+id/text_shidu"
+        android:id="@+id/main_ui_text_shidu"
         android:layout_width="70dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
@@ -155,7 +155,7 @@
         app:layout_constraintVertical_bias="0.131" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/main_ui_textView3"
         android:layout_width="124dp"
         android:layout_height="33dp"
         android:text="光照强度："
@@ -168,7 +168,7 @@
         app:layout_constraintVertical_bias="0.242" />
 
     <EditText
-        android:id="@+id/text_gzqd"
+        android:id="@+id/main_ui_text_gzqd"
         android:layout_width="90dp"
         android:layout_height="47dp"
         android:editable="false"
@@ -187,7 +187,7 @@
         app:layout_constraintVertical_bias="0.236" />
 
     <WebView
-        android:id="@+id/main_chart"
+        android:id="@+id/main_ui_chart"
         android:layout_width="match_parent"
         android:layout_height="275dp"
         android:layerType="software"
@@ -202,7 +202,7 @@
         app:layout_constraintVertical_bias="0.995" />
 
     <Button
-        android:id="@+id/main_details"
+        android:id="@+id/main_ui_chart_details"
         android:layout_width="113dp"
         android:layout_height="46dp"
         android:text="详细信息"
@@ -215,12 +215,12 @@
         app:layout_constraintVertical_bias="0.515" />
 
     <Button
-        android:id="@+id/main_network"
+        android:id="@+id/main_ui_button_network_info"
         android:layout_width="113dp"
         android:layout_height="46dp"
         android:text="网络信息"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_chart"
+        app:layout_constraintBottom_toBottomOf="@+id/main_ui_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

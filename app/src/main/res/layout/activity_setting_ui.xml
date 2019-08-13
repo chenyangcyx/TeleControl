@@ -7,7 +7,7 @@
     tools:context="com.telecontrol.ActivityClass.Setting_UI">
 
     <Button
-        android:id="@+id/setting_enter"
+        android:id="@+id/setting_ui_button_enter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.936" />
 
     <EditText
-        android:id="@+id/setting_guangzhaomin"
+        android:id="@+id/setting_ui_text_guangzhaomin"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.827" />
 
     <EditText
-        android:id="@+id/setting_guangzhaomax"
+        android:id="@+id/setting_ui_text_guangzhaomax"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -61,7 +61,7 @@
         app:layout_constraintVertical_bias="0.827" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/setting_ui_textView8"
         android:layout_width="46dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -79,7 +79,7 @@
         app:layout_constraintVertical_bias="0.816" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/setting_ui_textView5"
         android:layout_width="185dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
@@ -97,7 +97,7 @@
         app:layout_constraintVertical_bias="0.754" />
 
     <EditText
-        android:id="@+id/setting_shidumin"
+        android:id="@+id/setting_ui_text_shidumin"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.662" />
 
     <EditText
-        android:id="@+id/setting_shidumax"
+        android:id="@+id/setting_ui_text_shidumax"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -137,7 +137,7 @@
         app:layout_constraintVertical_bias="0.662" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/setting_ui_textView4"
         android:layout_width="142dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
@@ -155,7 +155,7 @@
         app:layout_constraintVertical_bias="0.596" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/setting_ui_textView7"
         android:layout_width="46dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -173,7 +173,7 @@
         app:layout_constraintVertical_bias="0.653" />
 
     <EditText
-        android:id="@+id/setting_wendumin"
+        android:id="@+id/setting_ui_text_wendumin"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -201,7 +201,7 @@
         tools:ignore="MissingConstraints">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/charts_toolbar"
+            android:id="@+id/setting_ui_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
@@ -210,7 +210,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/setting_ui_textView1"
         android:layout_width="82dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -228,7 +228,7 @@
         app:layout_constraintVertical_bias="0.124" />
 
     <EditText
-        android:id="@+id/setting_ip"
+        android:id="@+id/setting_ui_text_ip"
         android:layout_width="251dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -247,7 +247,7 @@
         app:layout_constraintVertical_bias="0.176" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/setting_ui_TextView2"
         android:layout_width="82dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -265,7 +265,7 @@
         app:layout_constraintVertical_bias="0.265" />
 
     <EditText
-        android:id="@+id/setting_port"
+        android:id="@+id/setting_ui_text_port"
         android:layout_width="251dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -284,7 +284,7 @@
         app:layout_constraintVertical_bias="0.326" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/setting_ui_textView3"
         android:layout_width="142dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
@@ -302,7 +302,7 @@
         app:layout_constraintVertical_bias="0.428" />
 
     <EditText
-        android:id="@+id/setting_wendumax"
+        android:id="@+id/setting_ui_text_wendumax"
         android:layout_width="79dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -322,7 +322,7 @@
         app:layout_constraintVertical_bias="0.491" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/setting_ui_textView6"
         android:layout_width="46dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -340,7 +340,7 @@
         app:layout_constraintVertical_bias="0.485" />
 
     <Button
-        android:id="@+id/setting_reset"
+        android:id="@+id/setting_ui_button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -356,7 +356,7 @@
         app:layout_constraintVertical_bias="0.936" />
 
     <Button
-        android:id="@+id/setting_changemode"
+        android:id="@+id/setting_ui_button_changemode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
