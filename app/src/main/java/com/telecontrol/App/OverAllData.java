@@ -76,11 +76,14 @@ public class OverAllData
     int current_wendu=0;
     int current_shidu=0;
     int current_gz=0;
-    int CHART_MAX_SIZE=8;        //图表最长长度
-    String CHART_MIN_WENDU="0";       //图表中温度最小值
-    String CHART_MAX_WENDU="60";      //图表中温度最大值
-    String CHART_MIN_SHIDU="40";       //图表中湿度最小值
-    String CHART_MAX_SHIDU="100";     //图表中湿度最大值
+    int MAIN_UI_CHART_MAX_SIZE=8;      //主页图表最长长度
+    int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
+    String CHART_MIN_WENDU="0";         //图表中温度最小值
+    String CHART_MAX_WENDU="60";        //图表中温度最大值
+    String CHART_MIN_SHIDU="40";        //图表中湿度最小值
+    String CHART_MAX_SHIDU="100";       //图表中湿度最大值
+    String CHART_MIN_GZ="0";
+    String CHART_MAX_GZ="120";
     /*存储所有数据的结构*/
 
     //获取数据的网址
@@ -120,10 +123,10 @@ public class OverAllData
         String te;
         try {
             JSONObject jsonObject = new JSONObject(str);
-            this.current_wendu=Integer.parseInt(jsonObject.getString("8wendu"));
-            this.current_shidu=Integer.parseInt(jsonObject.getString("8shidu"));
-            this.current_gz=Integer.parseInt(jsonObject.getString("8guangzhao"));
-            for(int i=1;i<=this.CHART_MAX_SIZE;i++)
+            this.current_wendu=Integer.parseInt(jsonObject.getString(API_MESSGAE_SIZE+"wendu"));
+            this.current_shidu=Integer.parseInt(jsonObject.getString(API_MESSGAE_SIZE+"shidu"));
+            this.current_gz=Integer.parseInt(jsonObject.getString(API_MESSGAE_SIZE+"guangzhao"));
+            for(int i = 1; i<=this.API_MESSGAE_SIZE; i++)
             {
                 te=jsonObject.getString("" + i +"time");
                 if(!this.data_time.contains(te))

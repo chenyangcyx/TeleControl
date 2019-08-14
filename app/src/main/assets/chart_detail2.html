@@ -60,6 +60,7 @@
                     {
                         type: 'category',
                         axisTick: {
+                            interval:0,
                             alignWithLabel: true
                         },
                         axisLine: {
@@ -75,6 +76,9 @@
                                         + (params.seriesData.length ? '：' + params.seriesData[0].data + y_name : '');
                                 }
                             }
+                        },
+                        axisLabel:{
+                            interval:0
                         },
                         data: data_prex_array
                     },

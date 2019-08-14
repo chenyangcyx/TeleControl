@@ -260,7 +260,13 @@ public class Chart_details extends AppCompatActivity
     //获取统计信息
     String GetTongjiInfo()
     {
-        return null;
+        StringBuilder info_wendu=new StringBuilder();       //温度数据
+        StringBuilder info_shidu=new StringBuilder();       //湿度数据
+        StringBuilder info_gz=new StringBuilder();          //光照数据
+        StringBuilder info_time=new StringBuilder();        //时间数据
+        StringBuilder str=new StringBuilder();              //最后合成的数据
+
+        return str.toString();
     }
 
     //发送Toast文本

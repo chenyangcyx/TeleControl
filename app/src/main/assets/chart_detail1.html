@@ -56,13 +56,17 @@
                     y:28,         //距离上边的距离
                     y2:44         //距离下边的距离
                 },
-                xAxis: [
-                    {
-                        type: 'category',
-                        boundaryGap: true,
-                        data: data_x_array
-                    }
-                ],
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: true,
+                    axisTick:{
+                        interval:0
+                    },
+                    axisLabel:{
+                        interval:0
+                    },
+                    data: data_x_array
+                },
                 yAxis: [
                     {
                         type: 'value',

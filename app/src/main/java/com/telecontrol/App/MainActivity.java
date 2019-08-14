@@ -262,19 +262,19 @@ public class MainActivity extends AppCompatActivity
                     ","+all.CHART_MIN_WENDU+","+all.CHART_MAX_WENDU+","+all.CHART_MIN_SHIDU+","+all.CHART_MAX_SHIDU+")");
             return;
         }
-        if(length-all.CHART_MAX_SIZE<0)
+        if(length-all.MAIN_UI_CHART_MAX_SIZE <0)
         {
             wendu_array.delete(0,wendu_array.length());
-            wendu_array.append("['").append(all.data_wendu.get(0).toString()).append("'");
+            wendu_array.append("['").append(all.data_wendu.get(0)).append("'");
             shidu_array.delete(0,shidu_array.length());
-            shidu_array.append("['").append(all.data_shidu.get(0).toString()).append("'");
+            shidu_array.append("['").append(all.data_shidu.get(0)).append("'");
             time_array.delete(0,time_array.length());
-            time_array.append("['").append(all.data_time.get(0)).append("'");
+            time_array.append("['").append(all.data_time.get(0).substring(14,19)).append("'");
             for(int i=1;i<length;i++)
             {
-                wendu_array.append(",'").append(all.data_wendu.get(i).toString()).append("'");
-                shidu_array.append(",'").append(all.data_shidu.get(i).toString()).append("'");
-                time_array.append(",'").append(all.data_time.get(i)).append("'");
+                wendu_array.append(",'").append(all.data_wendu.get(i)).append("'");
+                shidu_array.append(",'").append(all.data_shidu.get(i)).append("'");
+                time_array.append(",'").append(all.data_time.get(i).substring(14,19)).append("'");
             }
             wendu_array.append("]");
             shidu_array.append("]");
@@ -283,16 +283,16 @@ public class MainActivity extends AppCompatActivity
         else
         {
             wendu_array.delete(0,wendu_array.length());
-            wendu_array.append("['").append(all.data_wendu.get(length - all.CHART_MAX_SIZE).toString()).append("'");
+            wendu_array.append("['").append(all.data_wendu.get(length - all.MAIN_UI_CHART_MAX_SIZE)).append("'");
             shidu_array.delete(0,shidu_array.length());
-            shidu_array.append("['").append(all.data_shidu.get(length - all.CHART_MAX_SIZE).toString()).append("'");
+            shidu_array.append("['").append(all.data_shidu.get(length - all.MAIN_UI_CHART_MAX_SIZE)).append("'");
             time_array.delete(0,time_array.length());
-            time_array.append("['").append(all.data_time.get(length - all.CHART_MAX_SIZE)).append("'");
-            for(int i=length-all.CHART_MAX_SIZE+1;i<length;i++)
+            time_array.append("['").append((all.data_time.get(length - all.MAIN_UI_CHART_MAX_SIZE)).substring(14,19)).append("'");
+            for(int i = length-all.MAIN_UI_CHART_MAX_SIZE +1; i<length; i++)
             {
-                wendu_array.append(",'").append(all.data_wendu.get(i).toString()).append("'");
-                shidu_array.append(",'").append(all.data_shidu.get(i).toString()).append("'");
-                time_array.append(",'").append(all.data_time.get(i)).append("'");
+                wendu_array.append(",'").append(all.data_wendu.get(i)).append("'");
+                shidu_array.append(",'").append(all.data_shidu.get(i)).append("'");
+                time_array.append(",'").append(all.data_time.get(i).substring(14,19)).append("'");
             }
             wendu_array.append("]");
             shidu_array.append("]");
