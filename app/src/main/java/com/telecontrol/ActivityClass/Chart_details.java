@@ -19,6 +19,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class Chart_details extends AppCompatActivity
 {
     Button button_back,button_wendu,button_shidu,button_guangzhao,button_tongji;
@@ -189,22 +191,127 @@ public class Chart_details extends AppCompatActivity
     }
 
     //刷新温度图表
-    void RefreshWenduChart()
+    void RefreshTwoChart(String type_name)
     {
-        web_chart1.loadUrl("javascript:createChart('湿度',0,100,['10','22'],['44','77'])");
-        web_chart2.loadUrl("javascript:createChart('温度',0,100,['1','2'],['3','4'],['10','20'],['50','20'])");
-    }
+        StringBuilder data_name=new StringBuilder(type_name);
+        String value_range_min="";
+        String value_range_max="";
+        ArrayList<Integer> data_info=null;       //使用到的数据指针
+        switch (data_name.toString())
+        {
+            case "温度":
+                value_range_min=all.CHART_MIN_WENDU;
+                value_range_max=all.CHART_MAX_WENDU;
+                data_info=all.data_wendu;
+                break;
+            case "湿度":
+                value_range_min=all.CHART_MIN_SHIDU;
+                value_range_max=all.CHART_MAX_SHIDU;
+                data_info=all.data_shidu;
+                break;
+            case "光照":
+                value_range_min=all.CHART_MIN_GZ;
+                value_range_max=all.CHART_MAX_GZ;
+                data_info=all.data_gz;
+                break;
+        }
+        //web1的参数
+        StringBuilder data_x_array=new StringBuilder("[]");
+        StringBuilder data_value=new StringBuilder("[]");
+        //web2的参数
+        StringBuilder data_prex_array=new StringBuilder("[]");
+        StringBuilder data_curx_array=new StringBuilder("[]");
+        StringBuilder data_prevalue=new StringBuilder("[]");
+        StringBuilder data_curvalue=new StringBuilder("[]");
+        int length=all.data_time.size();
+        //开始构造web1数据
+        if(length==0)
+            web_chart1.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
+                    value_range_max+","+data_x_array+","+data_value+")");
+        if(length-all.CHART_DETAILS_WEB1_SIZE<0)
+        {
+            assert data_info != null;
+            data_x_array.delete(0,data_x_array.length());
+            data_x_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
+            data_value.delete(0,data_value.length());
+            data_value.append("['").append(data_info.get(0)).append("'");
+            for(int i=1;i<length;i++)
+            {
+                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_value.append(",'").append(data_info.get(i)).append("'");
+            }
+            data_x_array.append("]");
+            data_value.append("]");
+        }
+        else
+        {
+            assert data_info != null;
+            data_x_array.delete(0,data_x_array.length());
+            data_x_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
+            data_value.delete(0,data_value.length());
+            data_value.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB1_SIZE)).append("'");
+            for(int i=length-all.CHART_DETAILS_WEB1_SIZE+1;i<length;i++)
+            {
+                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_value.append(",'").append(data_info.get(i)).append("'");
+            }
+            data_x_array.append("]");
+            data_value.append("]");
+        }
+        web_chart1.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
+                value_range_max+","+data_x_array+","+data_value+")");
+        //开始构造web2数据
+        if(length==0)
+            web_chart2.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
+                    value_range_max+","+data_prex_array+","+data_curx_array+","+data_prevalue+","+
+                    data_curvalue+")");
+        if(length-all.CHART_DETAILS_WEB2_SIZE<0)
+        {
+            assert data_info != null;
+            data_curx_array.delete(0,data_curx_array.length());
+            data_curx_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
+            data_curvalue.delete(0,data_curvalue.length());
+            data_curvalue.append("['").append(data_info.get(0)).append("'");
 
-    //刷新湿度图表
-    void RefreshShiduChart()
-    {
-        web_chart1.loadUrl("javascript:createChart('湿度',0,50,['10','22'],['44','77'])");
-        web_chart2.loadUrl("javascript:createChart('光照',50,100,['1','2'],['3','4'],['60','80'],['77','20'])");
-    }
 
-    //刷新光照图表
-    void RefreshGuangzhaoChart()
-    {
+
+
+
+
+
+
+
+
+
+            data_x_array.delete(0,data_x_array.length());
+            data_x_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
+            data_value.delete(0,data_value.length());
+            data_value.append("['").append(data_info.get(0)).append("'");
+            for(int i=1;i<length;i++)
+            {
+                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_value.append(",'").append(data_info.get(i)).append("'");
+            }
+            data_x_array.append("]");
+            data_value.append("]");
+        }
+        else
+        {
+            assert data_info != null;
+            data_x_array.delete(0,data_x_array.length());
+            data_x_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
+            data_value.delete(0,data_value.length());
+            data_value.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB1_SIZE)).append("'");
+            for(int i=length-all.CHART_DETAILS_WEB1_SIZE+1;i<length;i++)
+            {
+                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_value.append(",'").append(data_info.get(i)).append("'");
+            }
+            data_x_array.append("]");
+            data_value.append("]");
+        }
+        web_chart1.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
+                value_range_max+","+data_x_array+","+data_value+")");
     }
 
     //图表的自动刷新
@@ -218,13 +325,13 @@ public class Chart_details extends AppCompatActivity
                     switch (CURRENT_MODE)
                     {
                         case MODE_WENDU:
-                            RefreshWenduChart();
+                            //RefreshWenduChart();
                             break;
                         case MODE_SHIDU:
-                            RefreshShiduChart();
+                            //RefreshShiduChart();
                             break;
                         case MODE_GZ:
-                            RefreshGuangzhaoChart();
+                            //RefreshGuangzhaoChart();
                             break;
                     }
                 han.postDelayed(this,all.ChartRefreshTime);
@@ -254,6 +361,8 @@ public class Chart_details extends AppCompatActivity
             text.setVisibility(View.INVISIBLE);             //文本框不可见
             button_copy.setVisibility(View.INVISIBLE);      //复制按钮不可见
             button_refresh.setVisibility(View.INVISIBLE);   //刷新按钮不可见
+            //默认刷新一次数据区域
+            text.setText(GetTongjiInfo());
         }
     }
 
@@ -263,9 +372,32 @@ public class Chart_details extends AppCompatActivity
         StringBuilder info_wendu=new StringBuilder();       //温度数据
         StringBuilder info_shidu=new StringBuilder();       //湿度数据
         StringBuilder info_gz=new StringBuilder();          //光照数据
-        StringBuilder info_time=new StringBuilder();        //时间数据
         StringBuilder str=new StringBuilder();              //最后合成的数据
-
+        String separation="\t\t\t\t\t\t";               //分隔符
+        if(all.data_time.size()>0)
+        {
+            //构造温度、湿度、光照数据
+            for(int i=0;i<all.data_time.size();i++)
+            {
+                info_wendu.append(all.data_time.get(i).substring(5)).append(separation).append(separation).append(all.data_wendu.get(i)).append(all.sep);
+                info_shidu.append(all.data_time.get(i).substring(5)).append(separation).append(separation).append(all.data_shidu.get(i)).append(all.sep);
+                info_gz.append(all.data_time.get(i).substring(5)).append(separation).append(separation).append(all.data_gz.get(i)).append(all.sep);
+            }
+            //数据合并
+            str.append("----------------温度数据----------------").append(all.sep);
+            str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("温度值").append(all.sep);
+            str.append(info_wendu).append(all.sep).append(all.sep);
+            str.append("----------------湿度数据----------------").append(all.sep);
+            str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("湿度值").append(all.sep);
+            str.append(info_shidu).append(all.sep).append(all.sep);
+            str.append("----------------光照数据----------------").append(all.sep);
+            str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("光照值").append(all.sep);
+            str.append(info_gz).append(all.sep).append(all.sep);
+            //添加注释
+            str.append("注：默认显示自APP启动以来所接收到的数据，全部数据请使用网页端或API查询！");
+        }
+        else
+            str.append("暂无数据").append(all.sep);
         return str.toString();
     }
 

@@ -269,12 +269,12 @@ public class MainActivity extends AppCompatActivity
             shidu_array.delete(0,shidu_array.length());
             shidu_array.append("['").append(all.data_shidu.get(0)).append("'");
             time_array.delete(0,time_array.length());
-            time_array.append("['").append(all.data_time.get(0).substring(14,19)).append("'");
+            time_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
             for(int i=1;i<length;i++)
             {
                 wendu_array.append(",'").append(all.data_wendu.get(i)).append("'");
                 shidu_array.append(",'").append(all.data_shidu.get(i)).append("'");
-                time_array.append(",'").append(all.data_time.get(i).substring(14,19)).append("'");
+                time_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
             }
             wendu_array.append("]");
             shidu_array.append("]");
@@ -287,12 +287,12 @@ public class MainActivity extends AppCompatActivity
             shidu_array.delete(0,shidu_array.length());
             shidu_array.append("['").append(all.data_shidu.get(length - all.MAIN_UI_CHART_MAX_SIZE)).append("'");
             time_array.delete(0,time_array.length());
-            time_array.append("['").append((all.data_time.get(length - all.MAIN_UI_CHART_MAX_SIZE)).substring(14,19)).append("'");
+            time_array.append("['").append((all.data_time.get(length - all.MAIN_UI_CHART_MAX_SIZE)).substring(14)).append("'");
             for(int i = length-all.MAIN_UI_CHART_MAX_SIZE +1; i<length; i++)
             {
                 wendu_array.append(",'").append(all.data_wendu.get(i)).append("'");
                 shidu_array.append(",'").append(all.data_shidu.get(i)).append("'");
-                time_array.append(",'").append(all.data_time.get(i).substring(14,19)).append("'");
+                time_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
             }
             wendu_array.append("]");
             shidu_array.append("]");

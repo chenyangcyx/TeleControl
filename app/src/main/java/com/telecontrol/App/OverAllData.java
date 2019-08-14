@@ -69,21 +69,23 @@ public class OverAllData
     /*程序配置*/
 
     /*存储所有数据的结构*/
-    ArrayList<Integer> data_wendu=new ArrayList<>();
-    ArrayList<Integer> data_shidu=new ArrayList<>();
-    ArrayList<Integer> data_gz=new ArrayList<>();
-    ArrayList<String> data_time=new ArrayList<>();
+    public ArrayList<Integer> data_wendu=new ArrayList<>();
+    public ArrayList<Integer> data_shidu=new ArrayList<>();
+    public ArrayList<Integer> data_gz=new ArrayList<>();
+    public ArrayList<String> data_time=new ArrayList<>();
     int current_wendu=0;
     int current_shidu=0;
     int current_gz=0;
     int MAIN_UI_CHART_MAX_SIZE=8;      //主页图表最长长度
-    int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
-    String CHART_MIN_WENDU="0";         //图表中温度最小值
-    String CHART_MAX_WENDU="60";        //图表中温度最大值
-    String CHART_MIN_SHIDU="40";        //图表中湿度最小值
-    String CHART_MAX_SHIDU="100";       //图表中湿度最大值
-    String CHART_MIN_GZ="0";
-    String CHART_MAX_GZ="120";
+    public int CHART_DETAILS_WEB1_SIZE=8;       //详细信息页，web1的x轴长度
+    public int CHART_DETAILS_WEB2_SIZE=16;      //详细信息页，web2的x轴长度
+    private int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
+    public String CHART_MIN_WENDU="0";          //图表中温度最小值
+    public String CHART_MAX_WENDU="60";         //图表中温度最大值
+    public String CHART_MIN_SHIDU="40";         //图表中湿度最小值
+    public String CHART_MAX_SHIDU="100";        //图表中湿度最大值
+    public String CHART_MIN_GZ="0";
+    public String CHART_MAX_GZ="120";
     /*存储所有数据的结构*/
 
     //获取数据的网址
@@ -163,8 +165,10 @@ public class OverAllData
     /*网络信息*/
     public StringBuilder network_message=new StringBuilder();          //用来存储所有信息的变量
     public final int NETWORK_MESSAGE_REFRESH_INTERVAL=500;             //网络信息页面的刷新时间间隔
+    //系统换行符号
+    public final String sep=System.getProperty("line.separator");
     //记录网络信息
-    public void RecordNetworkMessage(String str){network_message.append(GetFullTime()).append("\n").append(str).append("\n\n");}
+    public void RecordNetworkMessage(String str){ network_message.append(GetFullTime()).append(sep).append(str).append(sep).append(sep); }
     //自动翻页按钮状态
     public boolean auto_down_switch_state=true;
     /*网络信息*/
