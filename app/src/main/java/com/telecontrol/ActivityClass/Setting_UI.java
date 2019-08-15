@@ -11,12 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class Setting_UI extends AppCompatActivity {
 
     Button button_enter, button_reset, button_changemode;
-    EditText text_ip, text_port, text_wendumin, text_wendumax, text_shidumin, text_shidumax, text_gzmin, text_gzmax;
+    EditText text_ip, text_port, text_wendumin, text_wendumax, text_shidumin, text_shidumax, text_gzmin, text_gzmax,text_phone;
+    Switch switch_auto_monitor;
     OverAllData all=OverAllData.alldata;
 
     @Override
@@ -24,7 +26,7 @@ public class Setting_UI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_ui);
         //设置setting界面的状态栏
-        Toolbar toolbar = findViewById(R.id.network_details_ui_toolbar);
+        Toolbar toolbar = findViewById(R.id.setting_ui_toolbar);
         setSupportActionBar(toolbar);
         //初始化控件
         InitViewUnit();
@@ -33,7 +35,6 @@ public class Setting_UI extends AppCompatActivity {
     }
 
     //初始化控件
-    @SuppressLint("SetTextI18n")
     private void InitViewUnit()
     {
         button_reset = findViewById(R.id.setting_ui_button_reset);
@@ -47,20 +48,17 @@ public class Setting_UI extends AppCompatActivity {
         text_shidumax = findViewById(R.id.setting_ui_text_shidumax);
         text_gzmin = findViewById(R.id.setting_ui_text_guangzhaomin);
         text_gzmax = findViewById(R.id.setting_ui_text_guangzhaomax);
-        text_wendumin.setText(Integer.toString(all.wendu_min));
-        text_wendumax.setText(Integer.toString(all.wendu_max));
-        text_shidumin.setText(Integer.toString(all.shidu_min));
-        text_shidumax.setText(Integer.toString(all.shidu_max));
-        text_gzmin.setText(Integer.toString(all.guangzhao_min));
-        text_gzmax.setText(Integer.toString(all.guangzhao_max));
+        text_phone = findViewById(R.id.setting_ui_phone);
+        switch_auto_monitor = findViewById(R.id.setting_ui_automonitor);
+        text_wendumin.setText(String.valueOf(all.wendu_min));
+        text_wendumax.setText(String.valueOf(all.wendu_max));
+        text_shidumin.setText(String.valueOf(all.shidu_min));
+        text_shidumax.setText(String.valueOf(all.shidu_max));
+        text_gzmin.setText(String.valueOf(all.guangzhao_min));
+        text_gzmax.setText(String.valueOf(all.guangzhao_max));
         //初始化服务器IP和端口的输入框
-        text_ip.setText("    "+all.setting_ip);
-        if(all.LINK_MODE==all.LINK_MODE_WEB)
-            text_port.setText("    "+ all.setting_port +"    (服务器模式)");
-        else
-            text_port.setText("    "+ all.setting_port +"      (局域网模式)");
-        text_ip.setFocusable(false);
-        text_port.setFocusable(false);
+        text_ip.setText(String.valueOf(all.setting_ip));
+        text_port.setText(String.valueOf(all.setting_port));
     }
 
     //添加控件监听器
