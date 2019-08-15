@@ -6,8 +6,8 @@ android {
         applicationId 'com.telecontrol'
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 3
-        versionName '3.19.08.13'
+        versionCode 4
+        versionName '4.19.08.15'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     android.applicationVariants.all {

@@ -4,7 +4,6 @@
     <title>Chart</title>
     <!-- 引入图表绘制的js文件 -->
     <script src="echarts.js"></script>
-	<script src="macarons.js"></script>
 	<style>
         html,body
         {
@@ -70,6 +69,7 @@
                             }
                         },
                         axisPointer: {
+                            color:'black',
                             label: {
                                 formatter: function (params) {
                                     return data_name+'  ' + params.value
@@ -78,13 +78,15 @@
                             }
                         },
                         axisLabel:{
+                            color:'black',
                             interval:0
                         },
-                        data: data_prex_array
+                        data: data_curx_array
                     },
                     {
                         type: 'category',
                         axisTick: {
+                            interval:0,
                             alignWithLabel: true
                         },
                         axisLine: {
@@ -94,6 +96,7 @@
                             }
                         },
                         axisPointer: {
+                            color:'black',
                             label: {
                                 formatter: function (params) {
                                     return data_name+'  ' + params.value
@@ -101,7 +104,11 @@
                                 }
                             }
                         },
-                        data: data_curx_array
+                        axisLabel:{
+                            color:'black',
+                            interval:0
+                        },
+                        data: data_prex_array
                     }
                 ],
                 yAxis: [
@@ -110,6 +117,7 @@
                         min: value_range_min,
                         max: value_range_max,
                         axisLabel: {
+                            color:'black',
                             formatter: '{value}'+y_name
                         }
                     }

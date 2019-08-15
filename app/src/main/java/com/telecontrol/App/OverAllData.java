@@ -80,18 +80,18 @@ public class OverAllData
     public int CHART_DETAILS_WEB1_SIZE=8;       //详细信息页，web1的x轴长度
     public int CHART_DETAILS_WEB2_SIZE=16;      //详细信息页，web2的x轴长度
     private int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
-    public String CHART_MIN_WENDU="0";          //图表中温度最小值
+    public String CHART_MIN_WENDU="10";          //图表中温度最小值
     public String CHART_MAX_WENDU="60";         //图表中温度最大值
-    public String CHART_MIN_SHIDU="40";         //图表中湿度最小值
+    public String CHART_MIN_SHIDU="20";         //图表中湿度最小值
     public String CHART_MAX_SHIDU="100";        //图表中湿度最大值
-    public String CHART_MIN_GZ="0";
-    public String CHART_MAX_GZ="120";
+    public String CHART_MIN_GZ="15";
+    public String CHART_MAX_GZ="150";
     /*存储所有数据的结构*/
 
     //获取数据的网址
     public final String info_web_url="http://47.100.206.8:6500/getinfo.php";
     //图表的刷新时间
-    public final int ChartRefreshTime=1000;
+    public final int ChartRefreshTime=500;
     //从网页接收信息的间隔时间
     public final int WebRefreshTime=5000;
     //接收消息线程的暂停时间

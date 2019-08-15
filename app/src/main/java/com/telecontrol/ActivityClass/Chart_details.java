@@ -125,6 +125,11 @@ public class Chart_details extends AppCompatActivity
         button_wendu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CURRENT_SHOWMODE!=SHOWMODE_CHART)
+                {
+                    CURRENT_SHOWMODE=SHOWMODE_CHART;
+                    SetCurrentShowMode(CURRENT_SHOWMODE);
+                }
                 CURRENT_MODE=MODE_WENDU;
             }
         });
@@ -133,6 +138,11 @@ public class Chart_details extends AppCompatActivity
         button_shidu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CURRENT_SHOWMODE!=SHOWMODE_CHART)
+                {
+                    CURRENT_SHOWMODE=SHOWMODE_CHART;
+                    SetCurrentShowMode(CURRENT_SHOWMODE);
+                }
                 CURRENT_MODE=MODE_SHIDU;
             }
         });
@@ -141,6 +151,11 @@ public class Chart_details extends AppCompatActivity
         button_guangzhao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CURRENT_SHOWMODE!=SHOWMODE_CHART)
+                {
+                    CURRENT_SHOWMODE=SHOWMODE_CHART;
+                    SetCurrentShowMode(CURRENT_SHOWMODE);
+                }
                 CURRENT_MODE=MODE_GZ;
             }
         });
@@ -149,7 +164,7 @@ public class Chart_details extends AppCompatActivity
         button_tongji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CURRENT_SHOWMODE=1-CURRENT_SHOWMODE;
+                CURRENT_SHOWMODE=SHOWMODE_TEXT;
                 SetCurrentShowMode(CURRENT_SHOWMODE);
             }
         });
@@ -224,13 +239,13 @@ public class Chart_details extends AppCompatActivity
         StringBuilder data_prevalue=new StringBuilder("[]");
         StringBuilder data_curvalue=new StringBuilder("[]");
         int length=all.data_time.size();
+        assert data_info != null;
         //开始构造web1数据
         if(length==0)
             web_chart1.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
                     value_range_max+","+data_x_array+","+data_value+")");
         if(length-all.CHART_DETAILS_WEB1_SIZE<0)
         {
-            assert data_info != null;
             data_x_array.delete(0,data_x_array.length());
             data_x_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
             data_value.delete(0,data_value.length());
@@ -245,7 +260,6 @@ public class Chart_details extends AppCompatActivity
         }
         else
         {
-            assert data_info != null;
             data_x_array.delete(0,data_x_array.length());
             data_x_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
             data_value.delete(0,data_value.length());
@@ -265,53 +279,62 @@ public class Chart_details extends AppCompatActivity
             web_chart2.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
                     value_range_max+","+data_prex_array+","+data_curx_array+","+data_prevalue+","+
                     data_curvalue+")");
-        if(length-all.CHART_DETAILS_WEB2_SIZE<0)
+        else if(length-all.CHART_DETAILS_WEB1_SIZE<0)
         {
-            assert data_info != null;
             data_curx_array.delete(0,data_curx_array.length());
             data_curx_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
             data_curvalue.delete(0,data_curvalue.length());
             data_curvalue.append("['").append(data_info.get(0)).append("'");
-
-
-
-
-
-
-
-
-
-
-
-            data_x_array.delete(0,data_x_array.length());
-            data_x_array.append("['").append(all.data_time.get(0).substring(14)).append("'");
-            data_value.delete(0,data_value.length());
-            data_value.append("['").append(data_info.get(0)).append("'");
             for(int i=1;i<length;i++)
             {
-                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
-                data_value.append(",'").append(data_info.get(i)).append("'");
+                data_curx_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_curvalue.append(",'").append(data_info.get(i)).append("'");
             }
-            data_x_array.append("]");
-            data_value.append("]");
+            data_curx_array.append("]");
+            data_curvalue.append("]");
+        }
+        else if(length-all.CHART_DETAILS_WEB2_SIZE<0)
+        {
+            data_curx_array.delete(0,data_curx_array.length());
+            data_curx_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
+            data_curvalue.delete(0,data_curvalue.length());
+            data_curvalue.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB1_SIZE)).append("'");
+            for(int i=length-all.CHART_DETAILS_WEB1_SIZE+1;i<length;i++)
+            {
+                data_curx_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_curvalue.append(",'").append(data_info.get(i)).append("'");
+            }
+            data_curx_array.append("]");
+            data_curvalue.append("]");
         }
         else
         {
-            assert data_info != null;
-            data_x_array.delete(0,data_x_array.length());
-            data_x_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
-            data_value.delete(0,data_value.length());
-            data_value.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB1_SIZE)).append("'");
+            data_prex_array.delete(0,data_prex_array.length());
+            data_prex_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB2_SIZE).substring(14)).append("'");
+            data_curx_array.delete(0,data_curx_array.length());
+            data_curx_array.append("['").append(all.data_time.get(length-all.CHART_DETAILS_WEB1_SIZE).substring(14)).append("'");
+            data_prevalue.delete(0,data_prevalue.length());
+            data_prevalue.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB2_SIZE)).append("'");
+            data_curvalue.delete(0,data_curvalue.length());
+            data_curvalue.append("['").append(data_info.get(length-all.CHART_DETAILS_WEB1_SIZE)).append("'");
+            for(int i=length-all.CHART_DETAILS_WEB2_SIZE+1;i<length-all.CHART_DETAILS_WEB1_SIZE;i++)
+            {
+                data_prex_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_prevalue.append(",'").append(data_info.get(i)).append("'");
+            }
             for(int i=length-all.CHART_DETAILS_WEB1_SIZE+1;i<length;i++)
             {
-                data_x_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
-                data_value.append(",'").append(data_info.get(i)).append("'");
+                data_curx_array.append(",'").append(all.data_time.get(i).substring(14)).append("'");
+                data_curvalue.append(",'").append(data_info.get(i)).append("'");
             }
-            data_x_array.append("]");
-            data_value.append("]");
+            data_prex_array.append("]");
+            data_prevalue.append("]");
+            data_curx_array.append("]");
+            data_curvalue.append("]");
         }
-        web_chart1.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
-                value_range_max+","+data_x_array+","+data_value+")");
+        web_chart2.loadUrl("javascript:createChart('"+data_name+"',"+value_range_min+","+
+                value_range_max+","+data_prex_array+","+data_curx_array+","+data_prevalue+","+
+                data_curvalue+")");
     }
 
     //图表的自动刷新
@@ -325,13 +348,13 @@ public class Chart_details extends AppCompatActivity
                     switch (CURRENT_MODE)
                     {
                         case MODE_WENDU:
-                            //RefreshWenduChart();
+                            RefreshTwoChart("温度");
                             break;
                         case MODE_SHIDU:
-                            //RefreshShiduChart();
+                            RefreshTwoChart("湿度");
                             break;
                         case MODE_GZ:
-                            //RefreshGuangzhaoChart();
+                            RefreshTwoChart("光照");
                             break;
                     }
                 han.postDelayed(this,all.ChartRefreshTime);
@@ -384,13 +407,13 @@ public class Chart_details extends AppCompatActivity
                 info_gz.append(all.data_time.get(i).substring(5)).append(separation).append(separation).append(all.data_gz.get(i)).append(all.sep);
             }
             //数据合并
-            str.append("----------------温度数据----------------").append(all.sep);
+            str.append("------------温度数据------------").append(all.sep);
             str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("温度值").append(all.sep);
             str.append(info_wendu).append(all.sep).append(all.sep);
-            str.append("----------------湿度数据----------------").append(all.sep);
+            str.append("------------湿度数据------------").append(all.sep);
             str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("湿度值").append(all.sep);
             str.append(info_shidu).append(all.sep).append(all.sep);
-            str.append("----------------光照数据----------------").append(all.sep);
+            str.append("------------光照数据------------").append(all.sep);
             str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("光照值").append(all.sep);
             str.append(info_gz).append(all.sep).append(all.sep);
             //添加注释
