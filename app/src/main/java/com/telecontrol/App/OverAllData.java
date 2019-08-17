@@ -7,6 +7,12 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -79,7 +85,7 @@ public class OverAllData
     int MAIN_UI_CHART_MAX_SIZE=8;      //主页图表最长长度
     public int CHART_DETAILS_WEB1_SIZE=8;       //详细信息页，web1的x轴长度
     public int CHART_DETAILS_WEB2_SIZE=16;      //详细信息页，web2的x轴长度
-    private int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
+    public int API_MESSGAE_SIZE=16;            //调用网页API所获取的数值长度
     public String CHART_MIN_WENDU="10";          //图表中温度最小值
     public String CHART_MAX_WENDU="60";         //图表中温度最大值
     public String CHART_MIN_SHIDU="20";         //图表中湿度最小值
@@ -90,6 +96,14 @@ public class OverAllData
 
     //获取数据的网址
     public final String info_web_url="http://47.100.206.8:6500/getinfo.php";
+    //api的网址
+    public final String api_web_url="http://47.100.206.8:6500/api.php";
+    /*API的参数*/
+    public final String api_user_config="?user=admin&userkey=4a87545601d00981a52b762076f9380d6b48ae13";
+    public final String api_operation_getallswitch_string="&opeartion=getallswitch";
+    public final String api_operation_getallsettings_string="&operation=getallsettings";
+    public final String api_operation_setallsettings_string="&operation=setallsettings";
+    /*API的参数*/
     //图表的刷新时间
     public final int ChartRefreshTime=500;
     //从网页接收信息的间隔时间
@@ -110,7 +124,7 @@ public class OverAllData
 
     //获取时间
     @SuppressLint("SimpleDateFormat")
-    public SimpleDateFormat df=new SimpleDateFormat("mm:ss");
+    SimpleDateFormat df=new SimpleDateFormat("mm:ss");
     private String GetCurrentTime()
     {
         return df.format(System.currentTimeMillis());

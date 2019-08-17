@@ -2,7 +2,9 @@ package com.telecontrol.ActivityClass;
 
 import com.telecontrol.R;
 import com.telecontrol.App.OverAllData;
+import com.telecontrol.SocketFunction.APIResultStruct;
 import com.telecontrol.SocketFunction.ReceiveMessageFromLAN;
+import com.telecontrol.SocketFunction.UseWebAPI;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
@@ -32,10 +34,12 @@ public class Setting_UI extends AppCompatActivity {
         InitViewUnit();
         //添加控件监听器
         AddUnitActionListener();
+        //从网页获取设置信息并初始化
+        InitSettingsFromWeb();
     }
 
     //初始化控件
-    private void InitViewUnit()
+    void InitViewUnit()
     {
         button_reset = findViewById(R.id.setting_ui_button_reset);
         button_enter = findViewById(R.id.setting_ui_button_enter);
@@ -62,7 +66,7 @@ public class Setting_UI extends AppCompatActivity {
     }
 
     //添加控件监听器
-    private void AddUnitActionListener()
+    void AddUnitActionListener()
     {
         //重置按钮
         button_reset.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +99,17 @@ public class Setting_UI extends AppCompatActivity {
                 all.shidu_max= text_shidumax.getText().toString().equals("")?0:Integer.parseInt(text_shidumax.getText().toString());
                 all.guangzhao_min= text_gzmin.getText().toString().equals("")?0:Integer.parseInt(text_gzmin.getText().toString());
                 all.guangzhao_max= text_gzmax.getText().toString().equals("")?0:Integer.parseInt(text_gzmax.getText().toString());
-                if(!CheckScopen().equals("OK"))
+                String result;
+                if(!(result=CheckScopen()).equals("OK"))
                 {
-                ShowToastMessage(CheckScopen());
-                return;
-            }
-            Setting_UI.this.finish();
+                    ShowToastMessage(result);
+                    return;
+                }
+                //调用网页API发送设置信息
+                UseAPISendSetting();
+                //发送信息
+                ShowToastMessage("设置成功！");
+                Setting_UI.this.finish();
             }
         });
 
@@ -134,7 +143,7 @@ public class Setting_UI extends AppCompatActivity {
     }
 
     //检查三个范围值是否有误
-    private String CheckScopen()
+    String CheckScopen()
     {
         if(all.wendu_min>all.wendu_max)
             return "温度范围输入有误！";
@@ -145,8 +154,42 @@ public class Setting_UI extends AppCompatActivity {
         return "OK";
     }
 
+    //调用网页API发送所有设置信息
+    void UseAPISendSetting()
+    {
+        StringBuilder str=new StringBuilder(all.api_web_url);
+        //添加用户认证信息
+        str.append(all.api_user_config);
+        //添加功能调用
+        str.append(all.api_operation_setallsettings_string);
+        //添加信息
+        str.append("&ip=").append(text_ip.getText())
+                .append("&port=").append(text_port.getText())
+                .append("&wendu_min=").append(text_wendumin.getText())
+                .append("&wendu_max=").append(text_wendumax.getText())
+                .append("&shidu_min=").append(text_shidumin.getText())
+                .append("&shidu_max=").append(text_shidumax.getText())
+                .append("&gz_min=").append(text_gzmin.getText())
+                .append("&gz_max=").append(text_gzmax.getText())
+                .append("&phone=").append(text_phone.getText())
+                .append("&monitor_switch=").append(switch_auto_monitor.isChecked() ?"1":"0");
+        //调用网页API
+        APIResultStruct struct=new APIResultStruct();
+        while(struct.getCode()!=1)
+            new UseWebAPI(str.toString(),struct).start();
+    }
+
+    //从网页获取设置信息并初始化
+    void InitSettingsFromWeb()
+    {
+        APIResultStruct struct=new APIResultStruct();
+        while(struct.getCode()!=1)
+            new UseWebAPI(all.api_web_url+all.api_user_config+all.api_operation_getallsettings_string,struct);
+
+    }
+
     //发送Toast文本
-    public void ShowToastMessage(String str)
+    void ShowToastMessage(String str)
     {
         Toast.makeText(Setting_UI.this,str,Toast.LENGTH_SHORT).show();
     }
