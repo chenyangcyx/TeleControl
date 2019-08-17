@@ -60,13 +60,17 @@ public class OverAllData
     public final int shidu_min_init=0;          //湿度监测的初始化最低值
     public final int shidu_max_init=99;        //湿度监测的初始化最高值
     public final int guangzhao_min_init=0;      //光照监测的初始化最低值
-    public final int guangzhao_max_inti=99999;  //光照监测的初始化最高值
+    public final int guangzhao_max_init=99999;  //光照监测的初始化最高值
+    public final String phone_init="00000000000";          //号码的初始化值
+    public final boolean monitor_switch_init=false;        //是否自动监测的初始化值
     public int wendu_min=wendu_min_init;            //温度监测最低值
     public int wendu_max=wendu_max_init;            //温度监测最高值
     public int shidu_min=shidu_min_init;            //湿度监测最低值
     public int shidu_max=shidu_max_init;            //湿度监测最高值
     public int guangzhao_min=guangzhao_min_init;    //光照控制最低值
-    public int guangzhao_max=guangzhao_max_inti;    //光照控制最高值
+    public int guangzhao_max=guangzhao_max_init;    //光照控制最高值
+    public String phone;             //号码
+    public boolean monitor_switch;   //是否自动监测
 
     private long last_open_gg_time=0;                 //上次开启灌溉按钮的时间
     void RefreshOpenGGTime(){this.last_open_gg_time=System.currentTimeMillis();}     //更新上次开启灌溉按钮的时间
