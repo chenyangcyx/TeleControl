@@ -214,36 +214,19 @@ public class MainActivity extends AppCompatActivity
         //main页面的Handler事件初始化
         this.han=new Handler(){
             @SuppressLint("SetTextI18n")
-            @SuppressWarnings("NullableProblems")
             @Override
             public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case 1:             //服务器模式
-                        //检查模式
-                        if(all.LINK_MODE!=all.LINK_MODE_WEB)
-                            break;
-                        //消息解析
-                        all.EncodeReceiveMessageFromWeb(msg.obj.toString());
-                        //设置当前数值
-                        text_wendu.setText("" + all.current_wendu + " ℃");
-                        text_shidu.setText("" + all.current_shidu + " %");
-                        text_gzqd.setText("" + all.current_gz+" lx");
-                        //监控
-                        MonitorValue();
-                        break;
-                    case 2:             //局域网模式
-                        //检查模式
-                        if(all.LINK_MODE!=all.LINK_MODE_LAN)
-                            break;
-                        //消息解析
-                        all.EncodeReceiveMessageFromLAN(msg.obj.toString());
-                        //设置当前数值
-                        text_wendu.setText("" + all.current_wendu + " ℃");
-                        text_shidu.setText("" + all.current_shidu + " %");
-                        text_gzqd.setText("" + all.current_gz+" lx");
-                        //监控
-                        MonitorValue();
-                        break;
+                //服务器模式
+                if (msg.what == 1)      //检查模式
+                {
+                    //消息解析
+                    all.EncodeReceiveMessageFromWeb(msg.obj.toString());
+                    //设置当前数值
+                    text_wendu.setText("" + all.current_wendu + " ℃");
+                    text_shidu.setText("" + all.current_shidu + " %");
+                    text_gzqd.setText("" + all.current_gz + " lx");
+                    //监控
+                    MonitorValue();
                 }
             }
         };
@@ -318,31 +301,36 @@ public class MainActivity extends AppCompatActivity
     //数值监控
     public void MonitorValue()
     {
-        if (all.current_wendu > all.wendu_max || all.current_gz > all.guangzhao_max) {
-            if (!sw_zgl.isChecked()) {
+        //温度过低
+        if(all.current_wendu<all.wendu_min)
+        {
+            if(!sw_zgl.isChecked())
+            {
                 con.ZGL_Control("ON");
                 sw_zgl.setChecked(true);
-                Toast.makeText(MainActivity.this, "温度过高，打开遮光帘", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "温度过低，打开遮光帘", Toast.LENGTH_LONG).show();
             }
         }
-        if (all.current_wendu < all.wendu_min || all.current_gz < all.guangzhao_min) {
-            if (sw_zgl.isChecked()) {
+
+        //温度过高
+        if(all.current_wendu>all.wendu_max)
+        {
+            if(sw_zgl.isChecked())
+            {
                 con.ZGL_Control("OFF");
                 sw_zgl.setChecked(false);
-                Toast.makeText(MainActivity.this, "温度过低，关闭遮光帘", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "温度过高，关闭遮光帘", Toast.LENGTH_LONG).show();
             }
         }
-        if (all.current_shidu > all.shidu_max && !sw_pqs.isChecked()) {
-            con.PQS_Control("ON");
-            sw_pqs.setChecked(true);
-            Toast.makeText(MainActivity.this, "湿度过高，开启排气扇", Toast.LENGTH_LONG).show();
-        }
-        if (all.current_shidu < all.shidu_min && !sw_gg.isChecked()) {
+
+        //湿度过低
+        if(all.current_shidu<all.shidu_min)
+        {
             if(all.IfCloudOpenGG())         //可以开启灌溉
             {
                 con.GG_Control("ON");
                 sw_gg.setChecked(true);
-                Toast.makeText(MainActivity.this, "湿度过低，开启灌溉", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "湿度过低，打开灌溉", Toast.LENGTH_LONG).show();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -351,6 +339,38 @@ public class MainActivity extends AppCompatActivity
                     }
                 }, all.GG_TIME);
                 all.RefreshOpenGGTime();
+            }
+        }
+
+        //湿度过高
+        if(all.current_shidu>all.shidu_max)
+        {
+            if(!sw_pqs.isChecked())
+            {
+                con.PQS_Control("ON");
+                sw_pqs.setChecked(true);
+                Toast.makeText(MainActivity.this, "湿度过高，打开排气扇", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //光照过低
+        if(all.current_gz<all.guangzhao_min)
+        {
+            if (!sw_zgl.isChecked()) {
+                con.ZGL_Control("ON");
+                sw_zgl.setChecked(true);
+                Toast.makeText(MainActivity.this, "光照过低，打开遮光帘", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //光照过高
+        if(all.current_gz>all.guangzhao_max)
+        {
+            if(sw_zgl.isChecked())
+            {
+                con.ZGL_Control("OFF");
+                sw_zgl.setChecked(false);
+                Toast.makeText(MainActivity.this, "光照过高，关闭遮光帘", Toast.LENGTH_LONG).show();
             }
         }
     }

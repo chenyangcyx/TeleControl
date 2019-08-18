@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class Chart_details extends AppCompatActivity
@@ -34,7 +33,6 @@ public class Chart_details extends AppCompatActivity
     final int MODE_WENDU=1;         //温度
     final int MODE_SHIDU=2;         //湿度
     final int MODE_GZ=3;            //光照
-    final int MODE_XX=4;            //详细
     int CURRENT_MODE=MODE_WENDU;    //当前模式
 
     final int SHOWMODE_CHART=0;     //图表显示模式
@@ -417,7 +415,7 @@ public class Chart_details extends AppCompatActivity
             str.append(separation).append("时间").append(separation).append(separation).append("\t\t\t\t").append("光照值").append(all.sep);
             str.append(info_gz).append(all.sep).append(all.sep);
             //添加注释
-            str.append("注：默认显示自APP启动以来所接收到的数据，全部数据请使用网页端或API查询！");
+            str.append("注：默认显示自APP启动以来所接收到的数据，全部数据请使用API查询！");
         }
         else
             str.append("暂无数据").append(all.sep);

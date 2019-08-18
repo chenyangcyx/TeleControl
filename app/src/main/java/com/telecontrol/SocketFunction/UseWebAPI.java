@@ -26,7 +26,7 @@ public class UseWebAPI extends Thread
         try {
             URL url = new URL(url_address);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            BufferedReader reader=new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf8"));
+            BufferedReader reader=new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line;
             while((line=reader.readLine())!=null)
             {

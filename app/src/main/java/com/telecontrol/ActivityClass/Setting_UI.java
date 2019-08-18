@@ -3,7 +3,6 @@ package com.telecontrol.ActivityClass;
 import com.telecontrol.R;
 import com.telecontrol.App.OverAllData;
 import com.telecontrol.SocketFunction.APIResultStruct;
-import com.telecontrol.SocketFunction.ReceiveMessageFromLAN;
 import com.telecontrol.SocketFunction.UseWebAPI;
 
 import android.annotation.SuppressLint;
@@ -16,13 +15,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Setting_UI extends AppCompatActivity {
 
-    Button button_enter, button_reset, button_changemode;
+    Button button_enter, button_reset;
     EditText text_ip, text_port, text_wendumin, text_wendumax, text_shidumin, text_shidumax, text_gzmin, text_gzmax,text_phone;
     Switch switch_auto_monitor;
     OverAllData all=OverAllData.alldata;
@@ -51,7 +49,6 @@ public class Setting_UI extends AppCompatActivity {
     {
         button_reset = findViewById(R.id.setting_ui_button_reset);
         button_enter = findViewById(R.id.setting_ui_button_enter);
-        button_changemode = findViewById(R.id.setting_ui_button_changemode);
         text_ip = findViewById(R.id.setting_ui_text_ip);
         text_port = findViewById(R.id.setting_ui_text_port);
         text_wendumin = findViewById(R.id.setting_ui_text_wendumin);
@@ -138,34 +135,6 @@ public class Setting_UI extends AppCompatActivity {
                 //发送信息
                 ShowToastMessage("设置成功！");
                 Setting_UI.this.finish();
-            }
-        });
-
-        //切换模式按钮
-        button_changemode.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onClick(View v) {
-                all.LINK_MODE=1-all.LINK_MODE;
-                if(all.LINK_MODE==0)        //联网模式
-                {
-                    ShowToastMessage("切换到服务器模式");       //显示提示消息
-                    all.setting_ip=all.server_ip;                 //更换连接的ip
-                    all.setting_port=all.server_port;             //更换连接的端口
-                    text_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    text_port.setText("    "+ all.setting_port +"    (服务器模式)");  //更换显示的文本框内容，port
-                }
-                else                        //局域网模式
-                {
-                    ShowToastMessage("切换到局域网模式");       //显示提示消息
-                    all.setting_ip=all.lan_chip_ip;                 //更换连接的ip
-                    all.setting_port=all.lan_chip_port;             //更换连接的端口
-                    text_ip.setText("    "+all.setting_ip);                  //更换显示的文本框内容，ip
-                    text_port.setText("    "+ all.setting_port +"      (局域网模式)");  //更换显示的文本框内容，port
-                    //开启局域网模式消息接收线程
-                    all.thread_lan=new ReceiveMessageFromLAN(all.handler);
-                    all.thread_lan.start();
-                }
             }
         });
 

@@ -1,14 +1,11 @@
 package com.telecontrol.SocketFunction;
 
 import com.telecontrol.App.OverAllData;
-
 import android.os.Handler;
 import android.os.Message;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,7 +27,7 @@ public class ReceiveMessageFromWeb extends Thread
         try {
             URL url = new URL(all.info_web_url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            BufferedReader reader=new BufferedReader(new InputStreamReader(conn.getInputStream(),"utf8"));
+            BufferedReader reader=new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
             String line;
             while((line=reader.readLine())!=null)
             {
@@ -49,10 +46,8 @@ public class ReceiveMessageFromWeb extends Thread
             while (true)
             {
                 sleep(all.ReceiveThreadPauseTime);
-                if(all.LINK_MODE!=all.LINK_MODE_WEB)
-                    continue;
                 Message message = new Message();
-                message.what = all.MESSAGE_KIND_WEB;
+                message.what = 1;
                 message.obj = GetInfoFromWeb();
                 handler.sendMessage(message);
                 all.RecordNetworkMessage("服务器模式，URL："+all.info_web_url+"，收到信息："+message.obj);

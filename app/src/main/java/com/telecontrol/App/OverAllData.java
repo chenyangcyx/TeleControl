@@ -1,18 +1,11 @@
 package com.telecontrol.App;
 
-import com.telecontrol.SocketFunction.ReceiveMessageFromLAN;
 import com.telecontrol.SocketFunction.ReceiveMessageFromWeb;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -23,37 +16,23 @@ public class OverAllData
     /*连接相关*/
     public final String server_ip="47.100.206.8";  //服务器的IP地址
     public final int server_port=6000;             //服务器的端口
-    public final String lan_chip_ip="192.168.4.1"; //单片机的IP地址
-    public final int lan_chip_port=333;            //单片机的端口
-    public final int lan_app_port=5000;            //app在局域网模式下监听的端口
     /*连接相关*/
 
     /*控制命令相关*/
-    final String PQS_OFF_to_ON_WEB="control:A0";        //排气扇OFF到ON，联网模式
-    final String PQS_OFF_to_ON_LAN="A0";                //排气扇OFF到ON，局域网模式
-    final String PQS_ON_to_OFF_WEB="control:A1";        //排气扇ON到OFF，联网模式
-    final String PQS_ON_to_OFF_LAN="A1";                //排气扇ON到OFF，局域网模式
-    final String ZGL_OFF_to_ON_WEB="control:B0";        //遮光帘OFF到ON，联网模式
-    final String ZGL_OFF_to_ON_LAN="B0";                //遮光帘OFF到ON，局域网模式
-    final String ZGL_ON_to_OFF_WEB="control:B1";        //遮光帘ON到OFF，联网模式
-    final String ZGL_ON_to_OFF_LAN="B1";                //遮光帘ON到OFF，局域网模式
-    final String GG_OFF_to_ON_WEB="control:C0";         //灌溉开关OFF到ON，联网模式
-    final String GG_OFF_to_ON_LAN="C0";                 //灌溉开关OFF到ON，局域网模式
-    final String GG_ON_to_OFF_WEB="control:C1";         //灌溉开关ON到OFF，联网模式
-    final String GG_ON_to_OFF_LAN="C1";                 //灌溉开关ON到OFF，局域网模式
+    final String PQS_OFF_to_ON_WEB="control:A0";        //排气扇OFF到ON
+    final String PQS_ON_to_OFF_WEB="control:A1";        //排气扇ON到OFF
+    final String ZGL_OFF_to_ON_WEB="control:B0";        //遮光帘OFF到ON
+    final String ZGL_ON_to_OFF_WEB="control:B1";        //遮光帘ON到OFF
+    final String GG_OFF_to_ON_WEB="control:C0";         //灌溉开关OFF到ON
+    final String GG_ON_to_OFF_WEB="control:C1";         //灌溉开关ON到OFF
     final int GG_TIME=10*1000;                          //灌溉时间
-    final String BGD_OFF_to_ON_WEB="control:D0";        //补光灯从OFF到ON，联网模式
-    final String BGD_OFF_to_ON_LAN="D0";                //补光灯从OFF到ON，局域网模式
-    final String BGD_ON_to_OFF_WEB="control:D1";        //补光灯从ON到OFF，联网模式
-    final String BGD_ON_to_OFF_LAN="D1";                //补光灯从ON到OFF，局域网模式
+    final String BGD_OFF_to_ON_WEB="control:D0";        //补光灯从OFF到ON
+    final String BGD_ON_to_OFF_WEB="control:D1";        //补光灯从ON到OFF
     /*控制命令相关*/
 
     /*程序配置*/
     public String setting_ip=server_ip;        //当前设置的ip地址
     public int setting_port=server_port;       //当前设置的端口
-    public final int LINK_MODE_WEB=0;     //连接模式：联网模式
-    public final int LINK_MODE_LAN=1;     //连接模式：局域网模式
-    public int LINK_MODE=LINK_MODE_WEB;     //程序当前的连接模式
 
     public final int wendu_min_init=0;          //温度监测的初始化最低值
     public final int wendu_max_init=99;        //温度监测的初始化最高值
@@ -94,8 +73,8 @@ public class OverAllData
     public String CHART_MAX_WENDU="60";         //图表中温度最大值
     public String CHART_MIN_SHIDU="20";         //图表中湿度最小值
     public String CHART_MAX_SHIDU="100";        //图表中湿度最大值
-    public String CHART_MIN_GZ="0";
-    public String CHART_MAX_GZ="150";
+    public String CHART_MIN_GZ="0";             //图表中光照最小值
+    public String CHART_MAX_GZ="150";           //图表中光照最大值
     /*存储所有数据的结构*/
 
     //获取数据的网址
@@ -104,7 +83,6 @@ public class OverAllData
     public final String api_web_url="http://47.100.206.8:6500/api.php";
     /*API的参数*/
     public final String api_user_config="?user=admin&userkey=4a87545601d00981a52b762076f9380d6b48ae13";
-    public final String api_operation_getallswitch_string="&opeartion=getallswitch";
     public final String api_operation_getallsettings_string="&operation=getallsettings";
     public final String api_operation_setallsettings_string="&operation=setallsettings";
     /*API的参数*/
@@ -117,14 +95,8 @@ public class OverAllData
     //主页面的Handler
     public Handler handler;
 
-    //消息类型
-    public final int MESSAGE_KIND_WEB=1;        //由服务器模式接收到的message类型
-    public final int MESSAGE_KIND_LAN=2;        //由局域网模式接收到的message类型
-
     //服务器模式，接收线程
     ReceiveMessageFromWeb thread_web=null;
-    //局域网模式，接收线程
-    public ReceiveMessageFromLAN thread_lan=null;
 
     //获取时间
     @SuppressLint("SimpleDateFormat")
