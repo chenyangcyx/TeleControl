@@ -82,8 +82,6 @@
         android:layout_width="match_parent"
         android:layout_height="247dp"
         android:layout_marginTop="32dp"
-        android:layerType="software"
-        android:scrollbars="none"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/chart_details_ui_web2"
         app:layout_constraintEnd_toEndOf="parent"

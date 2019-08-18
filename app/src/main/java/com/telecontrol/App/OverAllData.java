@@ -94,7 +94,7 @@ public class OverAllData
     public String CHART_MAX_WENDU="60";         //图表中温度最大值
     public String CHART_MIN_SHIDU="20";         //图表中湿度最小值
     public String CHART_MAX_SHIDU="100";        //图表中湿度最大值
-    public String CHART_MIN_GZ="15";
+    public String CHART_MIN_GZ="0";
     public String CHART_MAX_GZ="150";
     /*存储所有数据的结构*/
 
